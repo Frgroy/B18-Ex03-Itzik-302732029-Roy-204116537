@@ -1,0 +1,5 @@
+c:\users\user\documents\visual studio 2015\Projects\B18-Ex03-Itzik-302732029-Roy-204116537\Ex03.GarageLogic\bin\Debug\Ex03.GarageLogic.dll
+c:\users\user\documents\visual studio 2015\Projects\B18-Ex03-Itzik-302732029-Roy-204116537\Ex03.GarageLogic\bin\Debug\Ex03.GarageLogic.pdb
+c:\users\user\documents\visual studio 2015\Projects\B18-Ex03-Itzik-302732029-Roy-204116537\Ex03.GarageLogic\obj\Debug\Ex03.GarageLogic.csprojResolveAssemblyReference.cache
+c:\users\user\documents\visual studio 2015\Projects\B18-Ex03-Itzik-302732029-Roy-204116537\Ex03.GarageLogic\obj\Debug\Ex03.GarageLogic.dll
+c:\users\user\documents\visual studio 2015\Projects\B18-Ex03-Itzik-302732029-Roy-204116537\Ex03.GarageLogic\obj\Debug\Ex03.GarageLogic.pdb

@@ -9,7 +9,7 @@ namespace Ex03.GarageLogic
 
           private float m_RemainingBatteryHours;
           private float m_MaxBatteryHours;
-
+          private float roy;
           public float RemainingBatteryHours
           {
                get { return m_RemainingBatteryHours; }

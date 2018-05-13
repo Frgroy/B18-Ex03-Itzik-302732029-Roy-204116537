@@ -28,6 +28,12 @@ namespace Ex03.GarageLogic
                set { m_MaxAirPressure = value; }
           }
 
+          public Wheel (string i_Manufacturer, float i_CurrentAirPressure, float i_MaxAirPressure)
+          {
+               m_Manufacturer = i_Manufacturer;
+               m_CurrentAirPressure = i_CurrentAirPressure;
+               m_MaxAirPressure = i_MaxAirPressure;
+          }
 
           public void Inflate(int i_AirAmountToAdd) //to do out of range exveption
           {

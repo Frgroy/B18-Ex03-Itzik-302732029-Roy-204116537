@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-     public class Car
+     public class Car : Vehicle
      {
           private const int k_FamilyWithTrunkDoors = 5;
           private const int k_FamilyDoors = 4;
@@ -25,7 +25,6 @@ namespace Ex03.GarageLogic
                set { m_DoorsNumber = value; }
           }
 
-
           public enum eCarColor
           {
                Grey,
@@ -33,5 +32,12 @@ namespace Ex03.GarageLogic
                White,
                Black
           }
+
+          private string m_Model;
+          private string m_LicenseNumber;
+          private float m_EnergyPercentage;
+          private List<Wheel> m_Wheels;
+          private EnergySource m_Engine;
+
      }
 }

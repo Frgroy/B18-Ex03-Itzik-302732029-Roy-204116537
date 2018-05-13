@@ -124,7 +124,7 @@ namespace Ex03.ConsoleUI
 
         private static void EnterNewVehicleRoutine()
         {
-            CarEntranceForm vehicleForm = new CarEntranceForm();
+            VehicleEntranceForm vehicleForm = new VehicleEntranceForm();
             bool isFoundInGarage = false;
             
             vehicleForm.LicenseNumber = GetLicenseNumberFromUser();

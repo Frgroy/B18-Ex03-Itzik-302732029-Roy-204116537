@@ -6,7 +6,6 @@ namespace Ex03.GarageLogic
 {
      public class ElectricEngine
      {
-          י
           private float m_RemainingBatteryHours;
           private float m_MaxBatteryHours;
           private float roy;

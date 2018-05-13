@@ -19,6 +19,13 @@ namespace Ex03.GarageLogic
           private GasolineEngine.eFuelType m_FuelType;
           private float m_CurrentFuelAmount;
 
+          public VehicleFactory.eVehicleType VehicleType
+          {
+               get { return m_VehicleType; }
+               set { m_VehicleType = value; }
+
+          }
+
           public string VehicleModel
           {
                get { return m_VehicleModel; }

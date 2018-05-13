@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Car.cs" />
+    <Compile Include="CarEntranceForm.cs" />
     <Compile Include="ElectricEngine.cs" />
     <Compile Include="Garage.cs" />
     <Compile Include="GasolineEngine.cs" />

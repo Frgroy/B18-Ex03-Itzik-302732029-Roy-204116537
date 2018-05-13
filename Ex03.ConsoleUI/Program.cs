@@ -4,8 +4,11 @@ using System.Text;
 
 namespace Ex03.ConsoleUI
 {
-     public class Program
+     public static class Program
      {
-
+          public static void Main()
+          {
+               
+          }
      }
 }

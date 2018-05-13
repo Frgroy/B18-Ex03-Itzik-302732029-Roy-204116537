@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-     public class CarEntranceForm
+     public class VehicleEntranceForm
      {
           private VehicleFactory.eVehicleType m_VehicleType;
           private string m_VehicleModel;

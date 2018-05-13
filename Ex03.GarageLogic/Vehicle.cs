@@ -41,5 +41,10 @@ namespace Ex03.GarageLogic
                get { return m_Engine; }
                set { m_Engine = value; }
           }
+
+          public Vehicle()
+          {
+
+          }
      }
 }

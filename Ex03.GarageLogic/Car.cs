@@ -6,10 +6,15 @@ namespace Ex03.GarageLogic
 {
      public class Car : Vehicle
      {
-          private const int k_FamilyWithTrunkDoors = 5;
-          private const int k_FamilyDoors = 4;
-          private const int k_MiniWithTrunkDoors = 3;
-          private const int k_MiniDoors = 2;
+          private const int k_NumberOfWheelsInCar = 4;
+          private const int k_MaximumAirPressure = 32;
+          private const GasolineEngine.eFuelType k_CarFuelType = GasolineEngine.eFuelType.Octan98;
+          private const float k_CarVolumeOfFuelTank = 45;
+          private const float k_MaximumBatteryLifeHours = 3.2f;
+          private const int k_FamilyCarWithTrunkDoors = 5;
+          private const int k_FamilyCarDoors = 4;
+          private const int k_MiniCarWithTrunkDoors = 3;
+          private const int k_MiniCarDoors = 2;
           private eCarColor m_Color;
           private int m_DoorsNumber;
 
@@ -33,11 +38,11 @@ namespace Ex03.GarageLogic
                Black
           }
 
-          private string m_Model;
-          private string m_LicenseNumber;
-          private float m_EnergyPercentage;
-          private List<Wheel> m_Wheels;
-          private EnergySource m_Engine;
+          public Car(VehicleEntranceForm i_vehicleEntranceForm)
+               : base()
+          {
+
+          }
 
      }
 }

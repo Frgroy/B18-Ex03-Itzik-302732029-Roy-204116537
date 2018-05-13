@@ -79,32 +79,22 @@ namespace Ex03.ConsoleUI
         private static void FuelVehicleRoutine()
         {
             string licenseNumber;
-            string fuelTypeString;
             GasolineEngine.eFuelType fuelType;
-            string fuelAmountString;
             float fuelAmount;
 
-            Console.WriteLine("Enter vehicle's license number");
-            licenseNumber = Console.ReadLine();
-            Console.WriteLine("Enter vehicle's fuel type");
-            fuelTypeString = Console.ReadLine();
-            fuelType = (GasolineEngine.eFuelType)int.Parse(fuelTypeString);
-            Console.WriteLine("Enter gasoline amount to fill");
-            fuelAmountString = Console.ReadLine();
-            fuelAmount = float.Parse(fuelAmountString);
+            licenseNumber = GetLicenseNumberFromUser();
+            fuelType = GetFuelTypeFromUser();
+            fuelAmount = GetFuelAmountFromUser();
 
         }
 
         private static void ChargeVehicleRoutine()
         {
             string licenseNumber;
-            string hoursAmountString;
             float hoursAmount;
 
             licenseNumber = GetLicenseNumberFromUser();
-            Console.WriteLine("Enter hours amount to charge");
-            hoursAmountString = Console.ReadLine();
-            hoursAmount = float.Parse(hoursAmountString);
+            hoursAmount = GetHoursAmountFromUser();
 
         }
 
@@ -119,57 +109,40 @@ namespace Ex03.ConsoleUI
         private static void ChangeVehicleStatusRoutine()
         {
             Garage.eVehicleStatus newStatus;
-            string newStatusString;
             string licenseNumber;
 
             licenseNumber = GetLicenseNumberFromUser();
-            Console.WriteLine("Enter vehicle's new status");
-            newStatusString = Console.ReadLine();
-            newStatus = (Garage.eVehicleStatus)int.Parse(newStatusString);
+            newStatus = GetStatusFromUser();
         }
 
         private static void DisplayAllLicenseNumberInGarageRoutine()
         {
             Garage.eVehicleStatus filterChoice;
-            string filterChoiceString;
-            string displayAllNumbersMessege = string.Format(
-@"Please choose your display filter:
-[1]All vehicles
-[2]Vehicles in repair status
-[3]Fixed vehicles
-[4]Payed service vehicles");
-            Console.WriteLine(displayAllNumbersMessege);
-            filterChoiceString = Console.ReadLine();
-            filterChoice = (Garage.eVehicleStatus)int.Parse(filterChoiceString);
+           
+            filterChoice = GetFilterFromUser();
         }
 
         private static void EnterNewVehicleRoutine()
         {
-            VehicleFactory.eVehicleType vehicleType;
-            string vehicleTypeString;
-            string licenseNumber;
-            string vehicleModel;
-            float energyPercentage;
-            string energyPercentageString;
-            string vehicleTypeMassage = string.Format(
-@"Enter vehicle type:
-[1] Gasoline car
-[2] Electric car
-[3] Gasoline motorcycle
-[4] Electric motorcycle
-[5] Truck");
-            Console.WriteLine(vehicleTypeMassage);
-            vehicleTypeString = Console.ReadLine();
-            vehicleType = (VehicleFactory.eVehicleType)int.Parse(vehicleTypeString);
-            Console.WriteLine("Enter vehicle's number license:");
-            licenseNumber = Console.ReadLine();
-            Console.WriteLine("Enter vehicle's model:");
-            vehicleModel = Console.ReadLine();
-            Console.WriteLine("Enter vehicle's energy percentage;:");
-            energyPercentageString = Console.ReadLine();
-            energyPercentage = float.Parse(energyPercentageString);
+            CarEntranceForm vehicleForm = new CarEntranceForm();
+            bool isFoundInGarage = false;
+            
+            vehicleForm.LicenseNumber = GetLicenseNumberFromUser();
+            isFoundInGarage = Garage.FindLicenseInGaragre();
+            
+            if(isFoundInGarage)
+            {
+                Console.WriteLine("Vehicle is already in garage");
+                Garage.ChangeVehicleStatus();
+            }
+            else
+            {
+                vehicleForm.VehicleType = GetVehicleTypeFromUser();
+                vehicleForm.VehicleModel = GetVehicleModelFromUser();
+                vehicleForm. = GetVehicleEnergyPercentage();
+            }
+            
         }
-
 
         public static bool IsUserInputLegal(string i_UserInput)
         {
@@ -194,12 +167,78 @@ namespace Ex03.ConsoleUI
 
         public static float GetHoursAmountFromUser()
         {
-            string hoursAmountString;
-
             Console.WriteLine("Enter hours amount to charge");
-            hoursAmountString = Console.ReadLine();
+            string hoursAmountString = Console.ReadLine();
+
             return float.Parse(hoursAmountString);
         }
         
+        public static Garage.eVehicleStatus GetStatusFromUser()
+        {
+            Console.WriteLine("Enter vehicle's new status");
+            string newStatusString = Console.ReadLine();
+
+            return (Garage.eVehicleStatus)int.Parse(newStatusString);
+        }
+
+        public static GasolineEngine.eFuelType GetFuelTypeFromUser()
+        {
+            Console.WriteLine("Enter vehicle's fuel type");
+            string fuelTypeString = Console.ReadLine();
+
+            return (GasolineEngine.eFuelType)int.Parse(fuelTypeString);
+        }
+
+        public static float GetFuelAmountFromUser()
+        {
+            Console.WriteLine("Enter gasoline amount to fill");
+            string fuelAmountString = Console.ReadLine();
+
+            return float.Parse(fuelAmountString);
+        }
+
+        public static string GetVehicleModelFromUser()
+        {
+            Console.WriteLine("Enter vehicle's model:");
+
+            return Console.ReadLine();
+        }
+        
+        public static float GetVehicleEnergyPercentage()
+        {
+            Console.WriteLine("Enter vehicle's energy percentage;:");
+            string energyPercentageString = Console.ReadLine();
+
+            return float.Parse(energyPercentageString);
+        }
+
+        public static Garage.eVehicleStatus GetFilterFromUser()
+        {
+            string displayAllNumbersMessege = string.Format(
+@"Please choose your display filter:
+[1]All vehicles
+[2]Vehicles in repair status
+[3]Fixed vehicles
+[4]Payed service vehicles");
+            Console.WriteLine(displayAllNumbersMessege);
+            string filterChoiceString = Console.ReadLine();
+
+            return (Garage.eVehicleStatus)int.Parse(filterChoiceString);
+        }
+
+        public static VehicleFactory.eVehicleType GetVehicleTypeFromUser()
+        {
+            string vehicleTypeMassage = string.Format(
+@"Enter vehicle type:
+[1] Gasoline car
+[2] Electric car
+[3] Gasoline motorcycle
+[4] Electric motorcycle
+[5] Truck");
+            Console.WriteLine(vehicleTypeMassage);
+            string vehicleTypeString = Console.ReadLine();
+
+            return (VehicleFactory.eVehicleType)int.Parse(vehicleTypeString);
+        }
     }
 }

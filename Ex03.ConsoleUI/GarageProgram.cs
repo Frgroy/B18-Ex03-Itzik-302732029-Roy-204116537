@@ -75,6 +75,7 @@ namespace Ex03.ConsoleUI
 
                Console.WriteLine("Enter vehicle's license number");
                licenseNumber = Console.ReadLine();
+            FUEGOOO;
           }
 
           private static void FuelVehicleRoutine()

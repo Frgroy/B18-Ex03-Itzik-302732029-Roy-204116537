@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-     public class GasolineEngine
+     public class GasolineEngine : EnergySource
      {
           private eFuelType m_FuelType;
           private float m_CurrentFuelAmount;

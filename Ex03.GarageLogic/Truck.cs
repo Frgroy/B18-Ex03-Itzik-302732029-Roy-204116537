@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-     public class Truck
+     public class Truck : Vehicle
      {
           private bool m_IsTrunkCool;
           private float m_EngineCapacity;
@@ -19,6 +19,11 @@ namespace Ex03.GarageLogic
           {
                get { return m_EngineCapacity; }
                set { m_EngineCapacity = value; }
+          }
+
+          public Truck()
+          {
+
           }
      }
 }

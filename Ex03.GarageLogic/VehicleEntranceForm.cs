@@ -18,6 +18,10 @@ namespace Ex03.GarageLogic
           private float m_RemainingBatteryHours;
           private GasolineEngine.eFuelType m_FuelType;
           private float m_CurrentFuelAmount;
+          private string m_WheelManufacturer;
+          private float m_WheelCurrentAirPressure;
+          private float m_WheelMaxAirPressure;
+
 
           public VehicleFactory.eVehicleType VehicleType
           {
@@ -90,6 +94,24 @@ namespace Ex03.GarageLogic
           {
                get { return m_CurrentFuelAmount; }
                set { m_CurrentFuelAmount = value; }
+          }
+
+          public string WheelManufacturer
+          {
+               get { return m_WheelManufacturer; }
+               set { m_WheelManufacturer = value; }
+          }
+
+          public float WheelCurrentAirPressure
+          {
+               get { return m_WheelCurrentAirPressure; }
+               set { m_WheelCurrentAirPressure = value; }
+          }
+
+          public float WheelMaxAirPressure
+          {
+               get { return m_WheelMaxAirPressure; }
+               set { m_WheelMaxAirPressure = value; }
           }
      }
 }

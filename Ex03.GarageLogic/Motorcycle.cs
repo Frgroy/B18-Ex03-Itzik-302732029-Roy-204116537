@@ -13,6 +13,7 @@ namespace Ex03.GarageLogic
           private const float k_MaximumBatteryLifeHours = 1.8f;
           private eLicenseType m_LicenseType;
           private int m_EngineCapacity;
+          private EnergySource m_Engine;
 
           public int EngineCapacity
           {
@@ -24,6 +25,12 @@ namespace Ex03.GarageLogic
           {
                get { return m_LicenseType; }
                set { m_LicenseType = value; }
+          }
+
+          public EnergySource Engine
+          {
+               get { return m_Engine; }
+               set { m_Engine = value; }
           }
 
           public enum eLicenseType

@@ -17,6 +17,7 @@ namespace Ex03.GarageLogic
           private const int k_MiniCarDoors = 2;
           private eCarColor m_Color;
           private int m_DoorsNumber;
+          private EnergySource m_Engine;
 
           public eCarColor Color
           {
@@ -38,8 +39,16 @@ namespace Ex03.GarageLogic
                Black
           }
 
+          public EnergySource Engine
+          {
+               get { return m_Engine; }
+               set { m_Engine = value; }
+          }
+
           public Car(VehicleEntranceForm i_vehicleEntranceForm)
-               : base()
+               : base(i_vehicleEntranceForm.VehicleModel, 
+                      i_vehicleEntranceForm.LicenseNumber
+                      )
           {
 
           }

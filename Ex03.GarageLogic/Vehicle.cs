@@ -10,7 +10,6 @@ namespace Ex03.GarageLogic
           private string m_LicenseNumber;
           private float m_EnergyPercentage;
           private List<Wheel> m_Wheels;
-          private EnergySource m_Engine;
 
           public string Model
           {
@@ -30,21 +29,12 @@ namespace Ex03.GarageLogic
                set { m_EnergyPercentage = value; }
           }
 
-          public List<Wheel> Wheels
-          {
-               get { return m_Wheels; }
-               set { m_Wheels = value; }
-          }
 
-          public EnergySource Engine
+          public Vehicle(string i_VehicleModel, string i_LicenseNumber, float i_MaximumEnergyCapacity, float i_CurrentEnergyAmount)
           {
-               get { return m_Engine; }
-               set { m_Engine = value; }
-          }
-
-          public Vehicle()
-          {
-
+               m_Model = i_VehicleModel;
+               m_LicenseNumber = i_LicenseNumber;
+               m_EnergyPercentage = (i_CurrentEnergyAmount / i_MaximumEnergyCapacity);
           }
      }
 }

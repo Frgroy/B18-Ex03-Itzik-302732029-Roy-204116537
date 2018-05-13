@@ -12,6 +12,7 @@ namespace Ex03.GarageLogic
           private const float k_TruckVolumeOfFuelTank = 115;
           private bool m_IsTrunkCool;
           private float m_TrunkCapacity;
+          private EnergySource m_Engine;
 
           public bool IsTrunkCool
           {
@@ -23,6 +24,12 @@ namespace Ex03.GarageLogic
           {
                get { return m_TrunkCapacity; }
                set { m_TrunkCapacity = value; }
+          }
+
+          public EnergySource Engine
+          {
+               get { return m_Engine; }
+               set { m_Engine = value; }
           }
      }
 }

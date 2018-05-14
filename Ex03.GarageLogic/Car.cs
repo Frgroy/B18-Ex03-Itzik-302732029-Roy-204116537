@@ -68,5 +68,13 @@ namespace Ex03.GarageLogic
                     Wheels.Add(WheelToAdd);
                }
           }
+
+          public override List<string> GetSpecificInfo()
+          {
+               List<string> infoArray = new List<string>();
+               infoArray.Add(m_Color.ToString());
+               infoArray.Add(m_DoorsNumber.ToString());
+               return infoArray;
+          }
      }
 }

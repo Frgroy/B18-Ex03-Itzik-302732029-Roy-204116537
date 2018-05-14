@@ -34,10 +34,34 @@ namespace Ex03.GarageLogic
                get { return m_Wheels; }
                set { m_Wheels = value; }
           }
+
           public Vehicle(string i_VehicleModel, string i_LicenseNumber)
           {
                m_Model = i_VehicleModel;
                m_LicenseNumber = i_LicenseNumber;
           }
+
+          public void Inflate()
+          {
+               foreach (Wheel wheel in Wheels)
+               {
+                    wheel.InflateWheelToFull();
+               }
+          }
+
+          public List<string> GetBasicInfo()
+          {
+               List<string> infoArray = new List<string>();
+               infoArray.Add(LicenseNumber);
+               infoArray.Add(Model);
+               infoArray.Add(Wheels[0].CurrentAirPressure.ToString());
+               infoArray.Add(Wheels[0].Manufacturer);
+               return infoArray;
+          }
+
+          public abstract List<string> GetSpecificInfo();
+     
+     }
+
      }
 }

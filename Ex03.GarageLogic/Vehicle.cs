@@ -62,4 +62,6 @@ namespace Ex03.GarageLogic
           public abstract List<string> GetSpecificInfo();
      
      }
+
+     }
 }

@@ -88,17 +88,6 @@ namespace Ex03.GarageLogic
                return isLicenseNumberFound;
           }
 
-          public void ChangeVehicleStatusToInRepair(string i_LicenseNumber)
-          {
-               foreach (VehicleInfo vehicleInfo in m_VehiclesInfo)
-               {
-                    if (vehicleInfo.Vehicle.LicenseNumber == i_LicenseNumber)
-                    {
-                         vehicleInfo.VehicleStatus = eVehicleStatus.InRepair;
-                    }
-               }
-          }
-
           public List<string> DisplayAllLicenseNumberOfVehicles()
           {
                List<string> allLicenseNumberOfVehicles = new List<string>();

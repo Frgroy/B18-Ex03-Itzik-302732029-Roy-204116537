@@ -55,6 +55,14 @@ namespace Ex03.GarageLogic
                }
           }
 
+          public override List<string> GetSpecificInfo()
+          {
+               List<string> infoArray = new List<string>();
+               infoArray.Add(m_EngineCapacity.ToString());
+               infoArray.Add(m_LicenseType.ToString());
+               return infoArray;
+          }
+
           public enum eLicenseType
           {
                A,

@@ -42,10 +42,10 @@ namespace Ex03.ConsoleUI
                     switch (userInput)
                     {
                          case 1:
-                              EnterNewVehicleRoutine();
+                              EnterNewVehicleRoutine(i_Garage);
                               break;
                          case 2:
-                              DisplayAllLicenseNumberInGarageRoutine();
+                              DisplayAllLicenseNumberInGarageRoutine(i_Garage);
                               break;
                          case 3:
                               ChangeVehicleStatusRoutine();
@@ -121,18 +121,18 @@ namespace Ex03.ConsoleUI
                filterChoice = GetFilter();
           }
 
-          private static void EnterNewVehicleRoutine()
+          private static void EnterNewVehicleRoutine(Garage garage)
           {
                VehicleEntranceForm vehicleForm = new VehicleEntranceForm();
                bool isFoundInGarage = false;
 
                vehicleForm.LicenseNumber = GetLicenseNumber();
-               isFoundInGarage = Garage.FindLicenseInGarage();
+               isFoundInGarage = garage.FindLicenseInGarage(vehicleForm.LicenseNumber);
 
                if (isFoundInGarage)
                {
                     Console.WriteLine("Vehicle is already in garage");
-                    Garage.ChangeVehicleStatus();
+                    garage.ChangeVehicleStatusToInRepair(vehicleForm.LicenseNumber);
                }
                else
                {

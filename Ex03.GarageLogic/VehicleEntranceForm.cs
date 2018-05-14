@@ -20,7 +20,6 @@ namespace Ex03.GarageLogic
           private float m_CurrentFuelAmount;
           private string m_WheelManufacturer;
           private float m_WheelCurrentAirPressure;
-          private float m_WheelMaxAirPressure;
 
 
           public VehicleFactory.eVehicleType VehicleType
@@ -106,12 +105,6 @@ namespace Ex03.GarageLogic
           {
                get { return m_WheelCurrentAirPressure; }
                set { m_WheelCurrentAirPressure = value; }
-          }
-
-          public float WheelMaxAirPressure
-          {
-               get { return m_WheelMaxAirPressure; }
-               set { m_WheelMaxAirPressure = value; }
           }
      }
 }

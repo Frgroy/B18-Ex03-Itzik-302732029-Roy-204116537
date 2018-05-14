@@ -128,7 +128,7 @@ namespace Ex03.ConsoleUI
             bool isFoundInGarage = false;
             
             vehicleForm.LicenseNumber = GetLicenseNumberFromUser();
-            isFoundInGarage = Garage.FindLicenseInGaragre();
+            isFoundInGarage = Garage.FindLicenseInGarage();
             
             if(isFoundInGarage)
             {
@@ -141,7 +141,6 @@ namespace Ex03.ConsoleUI
                 vehicleForm.VehicleModel = GetVehicleModelFromUser();
                 vehicleForm. = GetVehicleEnergyPercentage();
             }
-            
         }
 
         public static bool IsUserInputLegal(string i_UserInput)
@@ -202,14 +201,6 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("Enter vehicle's model:");
 
             return Console.ReadLine();
-        }
-        
-        public static float GetVehicleEnergyPercentage()
-        {
-            Console.WriteLine("Enter vehicle's energy percentage;:");
-            string energyPercentageString = Console.ReadLine();
-
-            return float.Parse(energyPercentageString);
         }
 
         public static Garage.eVehicleStatus GetFilterFromUser()

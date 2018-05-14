@@ -204,7 +204,7 @@ namespace Ex03.ConsoleUI
             return isLegalInput;
         }
 
-        public static string GetLicenseNumber()3
+        public static string GetLicenseNumber()
         {
             Console.WriteLine("Enter vehicle's license number");
 

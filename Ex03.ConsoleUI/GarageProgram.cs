@@ -42,25 +42,25 @@ namespace Ex03.ConsoleUI
                 switch (userInput)
                 {
                     case 1:
-                        EnterNewVehicleRoutine();
+                        EnterNewVehicleRoutine(i_Garage);
                         break;
                     case 2:
-                        DisplayAllLicenseNumberInGarageRoutine();
+                        DisplayAllLicenseNumberInGarageRoutine(i_Garage);
                         break;
                     case 3:
-                        ChangeVehicleStatusRoutine();
+                        ChangeVehicleStatusRoutine(i_Garage);
                         break;
                     case 4:
-                        InflateWheelsToMaxRoutine();
+                        InflateWheelsToMaxRoutine(i_Garage);
                         break;
                     case 5:
-                        FuelVehicleRoutine();
+                        FuelVehicleRoutine(i_Garage);
                         break;
                     case 6:
-                        ChargeVehicleRoutine();
+                        ChargeVehicleRoutine(i_Garage);
                         break;
                     case 7:
-                        DisplayVehicleInfoRoutine();
+                        DisplayVehicleInfoRoutine(i_Garage);
                         break;
                     case 8:
                         i_IsProgramActive = false;
@@ -70,14 +70,15 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        private static void InflateWheelsToMaxRoutine()
+        private static void InflateWheelsToMaxRoutine(Garage i_Garage)
         {
             string licenseNumber;
 
             licenseNumber = GetLicenseNumber();
+            i_Garage.InflateWheelsToMax(licenseNumber);
         }
 
-        private static void FuelVehicleRoutine()
+        private static void FuelVehicleRoutine(Garage i_Garage)
         {
             string licenseNumber;
             GasolineEngine.eFuelType fuelType;
@@ -86,53 +87,50 @@ namespace Ex03.ConsoleUI
             licenseNumber = GetLicenseNumber();
             fuelType = GetFuelType();
             fuelAmount = GetFuelAmount();
+
+            i_Garage.Fuel(licenseNumber, fuelType, fuelAmount);
         }
 
-        private static void ChargeVehicleRoutine()
+        private static void ChargeVehicleRoutine(Garage i_Garage)
         {
             string licenseNumber;
             float hoursAmount;
 
             licenseNumber = GetLicenseNumber();
             hoursAmount = GetHoursAmount();
+            i_Garage.Charge(licenseNumber, hoursAmount);
         }
 
-        private static void DisplayVehicleInfoRoutine()
+        private static void DisplayVehicleInfoRoutine(Garage i_Garage)
         {
             string licenseNumber;
 
             licenseNumber = GetLicenseNumber();
-
+            i_Garage.GetSpecificVehicleInfo(licenseNumber);
         }
 
-        private static void ChangeVehicleStatusRoutine()
+        private static void ChangeVehicleStatusRoutine(Garage i_Garage)
         {
             Garage.eVehicleStatus newStatus;
             string licenseNumber;
 
             licenseNumber = GetLicenseNumber();
             newStatus = GetStatus();
+            i_Garage.ChangeVehicleStatus(licenseNumber, newStatus);
         }
 
-        private static void DisplayAllLicenseNumberInGarageRoutine()
-        {
-            Garage.eVehicleStatus filterChoice;
-
-            filterChoice = GetFilter();
-        }
-
-        private static void EnterNewVehicleRoutine()
+        private static void EnterNewVehicleRoutine(Garage i_Garage)
         {
             VehicleEntranceForm vehicleForm = new VehicleEntranceForm();
             bool isFoundInGarage = false;
 
             vehicleForm.LicenseNumber = GetLicenseNumber();
-            isFoundInGarage = Garage.FindLicenseInGarage();
+            isFoundInGarage = i_Garage.FindLicenseInGarage(vehicleForm.LicenseNumber);
 
             if (isFoundInGarage)
             {
                 Console.WriteLine("Vehicle is already in garage");
-                Garage.ChangeVehicleStatus();
+                i_Garage.ChangeVehicleStatus(vehicleForm.LicenseNumber, Garage.eVehicleStatus.InRepair);
             }
             else
             {
@@ -161,7 +159,7 @@ namespace Ex03.ConsoleUI
                 i_VehicleEnranceForm.MotorcycleLicenseType = GetMotorcycleLicenseType();
             }
 
-            else
+            else if (i_VehicleEnranceForm.VehicleType == VehicleFactory.eVehicleType.Truck)
             {
                 i_VehicleEnranceForm.TruckTrunkCapacity = GetTruckTrunkCapacity();
                 i_VehicleEnranceForm.IsTruckTrunkCool = GetCoolTruckTrunkSatus();
@@ -179,7 +177,6 @@ namespace Ex03.ConsoleUI
             else
             {
                 i_VehicleEnranceForm.CurrentFuelAmount = GetCurrentFuelAmount();
-                i_VehicleEnranceForm.FuelType = GetFuelType();
             }
         }
 
@@ -264,25 +261,33 @@ namespace Ex03.ConsoleUI
             return (Garage.eVehicleStatus)int.Parse(filterChoiceString);
         }
 
+        private static void DisplayAllLicenseNumberInGarageRoutine(Garage i_Garage)
+        {
+            Garage.eVehicleStatus filterChoice;
+            filterChoice = GetFilter();
+
+            if (filterChoice == Garage.eVehicleStatus.Any)
+            {
+                i_Garage.DisplayAllLicenseNumberOfVehicles();
+            }
+            else
+            {
+                i_Garage.DisplayLicenseNumberOfVehiclesByStatus(filterChoice);
+            }
+        }
+
+
         public static VehicleFactory.eVehicleType GetVehicleType()
         {
             foreach (var name in Enum.GetNames(typeof(VehicleFactory.eVehicleType)))
             {
-                Console.WriteLine("{0,3:D}     0x{0:X}     {1}",
-                                  Enum.Parse(typeof(SignMagnitude), name),
+                Console.WriteLine("{0} {1}",
+                                  Enum.Parse(typeof(VehicleFactory.eVehicleType), name),
                                   name);
-                string vehicleTypeMassage = string.Format( //move msg to logic
-@"Enter vehicle type:
-[1] Gasoline car
-[2] Electric car
-[3] Gasoline motorcycle
-[4] Electric motorcycle
-[5] Truck");
-                Console.WriteLine(vehicleTypeMassage);
+            }
                 string vehicleTypeString = Console.ReadLine();
 
                 return (VehicleFactory.eVehicleType)int.Parse(vehicleTypeString);
-            }
         }
             public static Car.eCarColor GetCarColor()
             {

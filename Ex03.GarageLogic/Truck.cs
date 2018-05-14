@@ -31,7 +31,7 @@ namespace Ex03.GarageLogic
                m_IsTrunkCool = i_VehicleEntranceForm.IsTruckTrunkCool;
                m_TrunkCapacity = i_VehicleEntranceForm.TruckTrunkCapacity;
                Engine = new GasolineEngine(
-                    i_VehicleEntranceForm.FuelType, 
+                    k_TruckFuelType, 
                     i_VehicleEntranceForm.CurrentFuelAmount, 
                     k_TruckVolumeOfFuelTank);
                for (int i = 0; i < k_NumberOfWheelsInTruck; i++)

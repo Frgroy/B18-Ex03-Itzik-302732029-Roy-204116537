@@ -54,7 +54,7 @@ namespace Ex03.GarageLogic
                else
                {
                     Engine = new GasolineEngine(
-                         i_VehicleEntranceForm.FuelType,
+                         k_CarFuelType,
                          i_VehicleEntranceForm.CurrentFuelAmount,
                          k_CarVolumeOfFuelTank);
                }

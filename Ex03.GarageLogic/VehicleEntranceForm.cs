@@ -16,7 +16,6 @@ namespace Ex03.GarageLogic
           private bool m_IsTruckTrunkCool;
           private float m_TruckTrunkCapacity;
           private float m_RemainingBatteryHours;
-          private GasolineEngine.eFuelType m_FuelType;
           private float m_CurrentFuelAmount;
           private string m_WheelManufacturer;
           private float m_WheelCurrentAirPressure;
@@ -82,13 +81,7 @@ namespace Ex03.GarageLogic
                get { return m_RemainingBatteryHours; }
                set { m_RemainingBatteryHours = value; }
           }
-
-          public GasolineEngine.eFuelType FuelType
-          {
-               get { return m_FuelType; }
-               set { m_FuelType = value; }
-          }
-
+       
           public float CurrentFuelAmount
           {
                get { return m_CurrentFuelAmount; }

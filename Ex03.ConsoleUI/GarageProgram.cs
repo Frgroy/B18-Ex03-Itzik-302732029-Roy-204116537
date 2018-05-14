@@ -146,7 +146,7 @@ namespace Ex03.ConsoleUI
 
         public static void GetSpecificVehicleInfo(VehicleEntranceForm i_VehicleEnranceForm)
         {
-            
+
             if (i_VehicleEnranceForm.VehicleType == VehicleFactory.eVehicleType.ElectricCar
                       || i_VehicleEnranceForm.VehicleType == VehicleFactory.eVehicleType.GasolineCar)
             {
@@ -278,112 +278,112 @@ namespace Ex03.ConsoleUI
 [3] Gasoline motorcycle
 [4] Electric motorcycle
 [5] Truck");
-            Console.WriteLine(vehicleTypeMassage);
-            string vehicleTypeString = Console.ReadLine();
+                Console.WriteLine(vehicleTypeMassage);
+                string vehicleTypeString = Console.ReadLine();
 
-            return (VehicleFactory.eVehicleType)int.Parse(vehicleTypeString);
+                return (VehicleFactory.eVehicleType)int.Parse(vehicleTypeString);
+            }
         }
-
-        public static Car.eCarColor GetCarColor()
-        {
-            string carColorMessege = string.Format(
- @"Choose your car's color:
+            public static Car.eCarColor GetCarColor()
+            {
+                string carColorMessege = string.Format(
+     @"Choose your car's color:
 [1]Grey
 [2]Blue
 [3]White
 [4]Black");
-            Console.WriteLine(carColorMessege);
-            string colorString = Console.ReadLine();
+                Console.WriteLine(carColorMessege);
+                string colorString = Console.ReadLine();
 
-            return (Car.eCarColor)int.Parse(colorString);
-    }
+                return (Car.eCarColor)int.Parse(colorString);
+            }
 
-        public static int GetCarDoorsNumber()
-        {
-            Console.WriteLine("Enter number of doors: ");
-            string doorNumberString = Console.ReadLine();
+            public static int GetCarDoorsNumber()
+            {
+                Console.WriteLine("Enter number of doors: ");
+                string doorNumberString = Console.ReadLine();
 
-            return int.Parse(doorNumberString);
-        }
+                return int.Parse(doorNumberString);
+            }
 
-        public static int GetMotorcycleEngineCapacity()
-        {
-            Console.WriteLine("Enter engine capacity: ");
-            string engineCapacityString = Console.ReadLine();
+            public static int GetMotorcycleEngineCapacity()
+            {
+                Console.WriteLine("Enter engine capacity: ");
+                string engineCapacityString = Console.ReadLine();
 
-            return int.Parse(engineCapacityString);
-        }
+                return int.Parse(engineCapacityString);
+            }
 
-        public static Motorcycle.eLicenseType GetMotorcycleLicenseType()
-        {
-            string motorcycleLicenseTypeMessege = string.Format(
- @"Choose your license type:
+            public static Motorcycle.eLicenseType GetMotorcycleLicenseType()
+            {
+                string motorcycleLicenseTypeMessege = string.Format(
+     @"Choose your license type:
 [1]A
 [2]A1
 [3]B1
 [4]B2");
-            Console.WriteLine(motorcycleLicenseTypeMessege);
-            string motorcycleLicenseTypeString = Console.ReadLine();
+                Console.WriteLine(motorcycleLicenseTypeMessege);
+                string motorcycleLicenseTypeString = Console.ReadLine();
 
-            return (Motorcycle.eLicenseType)int.Parse(motorcycleLicenseTypeString);
-        }
+                return (Motorcycle.eLicenseType)int.Parse(motorcycleLicenseTypeString);
+            }
 
-        public static float GetRemainingBatteryHours()
-        {
-            Console.WriteLine("Enter remaining battery hours: ");
-            string remainingBatteryHoursString = Console.ReadLine();
+            public static float GetRemainingBatteryHours()
+            {
+                Console.WriteLine("Enter remaining battery hours: ");
+                string remainingBatteryHoursString = Console.ReadLine();
 
-            return float.Parse(remainingBatteryHoursString);
-        }
+                return float.Parse(remainingBatteryHoursString);
+            }
 
-        public static float GetCurrentFuelAmount()
-        {
-            Console.WriteLine("Enter current fuel amount: ");
-            string currentFuelAmountString = Console.ReadLine();
+            public static float GetCurrentFuelAmount()
+            {
+                Console.WriteLine("Enter current fuel amount: ");
+                string currentFuelAmountString = Console.ReadLine();
 
-            return float.Parse(currentFuelAmountString);
-        }
+                return float.Parse(currentFuelAmountString);
+            }
 
-        public static string GetWheelsManufacturer()
-        {
-            Console.WriteLine("Enter wheels manufacturer's name: ");
+            public static string GetWheelsManufacturer()
+            {
+                Console.WriteLine("Enter wheels manufacturer's name: ");
 
-            return Console.ReadLine();
-        }
+                return Console.ReadLine();
+            }
 
-        public static float GetWheelsAirPressure()
-        {
-            Console.WriteLine("Enter wheels air pressure: ");
-            string wheelsAirPressureString = Console.ReadLine();
+            public static float GetWheelsAirPressure()
+            {
+                Console.WriteLine("Enter wheels air pressure: ");
+                string wheelsAirPressureString = Console.ReadLine();
 
-            return float.Parse(wheelsAirPressureString);
-        }
+                return float.Parse(wheelsAirPressureString);
+            }
 
-        public static int GetTruckTrunkCapacity()
-        {
-            Console.WriteLine("Enter trunk's truck capacity: ");
-            string TruckTrunkCapacityString = Console.ReadLine();
+            public static int GetTruckTrunkCapacity()
+            {
+                Console.WriteLine("Enter trunk's truck capacity: ");
+                string TruckTrunkCapacityString = Console.ReadLine();
 
-            return int.Parse(TruckTrunkCapacityString);
-        }
+                return int.Parse(TruckTrunkCapacityString);
+            }
 
-        public static bool GetCoolTruckTrunkSatus()
-        {
-            bool isCool = false;
-            string TruckTrunkCoolMessege = string.Format(
- @"Is your turck's trunk cool?
+            public static bool GetCoolTruckTrunkSatus()
+            {
+                bool isCool = false;
+                string TruckTrunkCoolMessege = string.Format(
+     @"Is your turck's trunk cool?
 [1]Yes
 [2]No");
-            Console.WriteLine(TruckTrunkCoolMessege);
-            string TruckTrunkCapacityString = Console.ReadLine();
-            if (int.Parse(TruckTrunkCapacityString) == 1)
-                isCool = true;
+                Console.WriteLine(TruckTrunkCoolMessege);
+                string TruckTrunkCapacityString = Console.ReadLine();
+                if (int.Parse(TruckTrunkCapacityString) == 1)
+                    isCool = true;
 
-            return isCool;
+                return isCool;
+            }
+
+
+
+
         }
-
-
-
-
     }
-}

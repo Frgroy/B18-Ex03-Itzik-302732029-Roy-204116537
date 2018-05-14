@@ -5,3 +5,5 @@ C:\Users\user\documents\visual studio 2015\Projects\B18-Ex03-Itzik-302732029-Roy
 C:\Users\user\documents\visual studio 2015\Projects\B18-Ex03-Itzik-302732029-Roy-204116537\Ex03.ConsoleUI\bin\Debug\Ex03.GarageLogic.pdb
 C:\Users\user\documents\visual studio 2015\Projects\B18-Ex03-Itzik-302732029-Roy-204116537\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.exe
 C:\Users\user\documents\visual studio 2015\Projects\B18-Ex03-Itzik-302732029-Roy-204116537\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.pdb
+C:\Users\itzik\OneDrive\מסמכים\GitHub\B18-Ex03-Itzik-302732029-Roy-204116537\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.csprojResolveAssemblyReference.cache
+C:\Users\itzik\OneDrive\מסמכים\GitHub\B18-Ex03-Itzik-302732029-Roy-204116537\Ex03.ConsoleUI\obj\Debug\Ex03.ConsoleUI.csproj.CoreCompileInputs.cache

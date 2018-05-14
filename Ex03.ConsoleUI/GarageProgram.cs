@@ -139,7 +139,6 @@ namespace Ex03.ConsoleUI
             {
                 vehicleForm.VehicleType = GetVehicleTypeFromUser();
                 vehicleForm.VehicleModel = GetVehicleModelFromUser();
-                vehicleForm. = GetVehicleEnergyPercentage();
             }
         }
 
@@ -205,7 +204,7 @@ namespace Ex03.ConsoleUI
 
         public static Garage.eVehicleStatus GetFilterFromUser()
         {
-            string displayAllNumbersMessege = string.Format(
+            string displayAllNumbersMessege = string.Format( //move msg to logic
 @"Please choose your display filter:
 [1]All vehicles
 [2]Vehicles in repair status
@@ -219,7 +218,7 @@ namespace Ex03.ConsoleUI
 
         public static VehicleFactory.eVehicleType GetVehicleTypeFromUser()
         {
-            string vehicleTypeMassage = string.Format(
+            string vehicleTypeMassage = string.Format( //move msg to logic
 @"Enter vehicle type:
 [1] Gasoline car
 [2] Electric car

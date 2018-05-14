@@ -22,6 +22,7 @@ namespace Ex03.GarageLogic
           }
 
           public ElectricEngine (float i_RemainingBatteryHours, float i_MaxBatteryHours)
+               : base(i_RemainingBatteryHours / i_MaxBatteryHours * 100)
           {
                m_RemainingBatteryHours = i_RemainingBatteryHours;
                m_MaxBatteryHours = i_MaxBatteryHours;

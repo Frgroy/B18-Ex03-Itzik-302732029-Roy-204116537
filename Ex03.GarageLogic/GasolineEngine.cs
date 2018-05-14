@@ -22,7 +22,7 @@ namespace Ex03.GarageLogic
                set { m_CurrentFuelAmount = value; }
           }
 
-          public float MaxFuelAmount //to do constants
+          public float MaxFuelAmount
           {
                get { return m_MaxFuelAmount; }
                set { m_MaxFuelAmount = value; }
@@ -31,6 +31,14 @@ namespace Ex03.GarageLogic
           public void Fuel(float i_FuelAmountToAdd)//to do out of range excepreiino
           {
                m_CurrentFuelAmount += i_FuelAmountToAdd;
+          }
+
+          public GasolineEngine(eFuelType i_FuelType, float i_CurrentFuelAmount, float i_MaxFuelAmount)
+               : base(i_CurrentFuelAmount / i_MaxFuelAmount * 100)
+          {
+               m_FuelType = i_FuelType;
+               m_CurrentFuelAmount = i_CurrentFuelAmount;
+               m_MaxFuelAmount = i_MaxFuelAmount;
           }
 
           public enum eFuelType

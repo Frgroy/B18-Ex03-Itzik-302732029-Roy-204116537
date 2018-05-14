@@ -17,7 +17,6 @@ namespace Ex03.GarageLogic
           private const int k_MiniCarDoors = 2;
           private eCarColor m_Color;
           private int m_DoorsNumber;
-          private EnergySource m_Engine;
 
           public eCarColor Color
           {
@@ -39,19 +38,35 @@ namespace Ex03.GarageLogic
                Black
           }
 
-          public EnergySource Engine
+          public Car(VehicleEntranceForm i_VehicleEntranceForm)
+               : base(i_VehicleEntranceForm.VehicleModel,
+                      i_VehicleEntranceForm.LicenseNumber)
           {
-               get { return m_Engine; }
-               set { m_Engine = value; }
+               m_Color = i_VehicleEntranceForm.CarColor;
+               m_DoorsNumber = i_VehicleEntranceForm.CarDoorsNumber;
+
+               if (i_VehicleEntranceForm.VehicleType == VehicleFactory.eVehicleType.ElectricMotorcycle)
+               {
+                    Engine = new ElectricEngine(
+                         i_VehicleEntranceForm.RemainingBatteryHours,
+                         k_MaximumBatteryLifeHours);
+               }
+               else
+               {
+                    Engine = new GasolineEngine(
+                         i_VehicleEntranceForm.FuelType,
+                         i_VehicleEntranceForm.CurrentFuelAmount,
+                         k_CarVolumeOfFuelTank);
+               }
+
+               for (int i = 0; i < k_NumberOfWheelsInCar; i++)
+               {
+                    Wheel WheelToAdd = new Wheel(
+                         i_VehicleEntranceForm.WheelManufacturer,
+                         i_VehicleEntranceForm.WheelCurrentAirPressure,
+                         k_MaximumAirPressure);
+                    Wheels.Add(WheelToAdd);
+               }
           }
-
-          public Car(VehicleEntranceForm i_vehicleEntranceForm)
-               : base(i_vehicleEntranceForm.VehicleModel, 
-                      i_vehicleEntranceForm.LicenseNumber
-                      )
-          {
-
-          }
-
      }
 }

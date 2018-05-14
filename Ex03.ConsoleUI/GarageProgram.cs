@@ -177,7 +177,7 @@ namespace Ex03.ConsoleUI
             int userInputResult;
             if (int.TryParse(i_UserInput, out userInputResult))
             {
-                if (Regex.IsMatch(i_UserInput, "[1-8]")) ;
+                if (Regex.IsMatch(i_UserInput, "[1-8]"))
                 {
                     isLegalInput = true;
                 }

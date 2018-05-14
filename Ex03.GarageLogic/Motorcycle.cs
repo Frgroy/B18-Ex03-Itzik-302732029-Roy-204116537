@@ -13,7 +13,6 @@ namespace Ex03.GarageLogic
           private const float k_MaximumBatteryLifeHours = 1.8f;
           private eLicenseType m_LicenseType;
           private int m_EngineCapacity;
-          private EnergySource m_Engine;
 
           public int EngineCapacity
           {
@@ -27,10 +26,33 @@ namespace Ex03.GarageLogic
                set { m_LicenseType = value; }
           }
 
-          public EnergySource Engine
+          public Motorcycle(VehicleEntranceForm i_VehicleEntranceForm)
+               : base(i_VehicleEntranceForm.VehicleModel, i_VehicleEntranceForm.LicenseNumber)
           {
-               get { return m_Engine; }
-               set { m_Engine = value; }
+               m_LicenseType = i_VehicleEntranceForm.MotorcycleLicenseType;
+               m_EngineCapacity = i_VehicleEntranceForm.MotorcycleEngineCapacity;
+               if (i_VehicleEntranceForm.VehicleType == VehicleFactory.eVehicleType.ElectricMotorcycle)
+               {
+                    Engine = new ElectricEngine(
+                         i_VehicleEntranceForm.RemainingBatteryHours,
+                         k_MaximumBatteryLifeHours);
+               }
+               else
+               {
+                    Engine = new GasolineEngine(
+                         i_VehicleEntranceForm.FuelType,
+                         i_VehicleEntranceForm.CurrentFuelAmount,
+                         k_MotorcycleVolumeOfFuelTank);
+               }
+
+               for (int i = 0; i < k_NumberOfWheelsInMotorcycle; i++)
+               {
+                    Wheel WheelToAdd = new Wheel(
+                         i_VehicleEntranceForm.WheelManufacturer,
+                         i_VehicleEntranceForm.WheelCurrentAirPressure,
+                         k_MaximumAirPressure);
+                    Wheels.Add(WheelToAdd);
+               }
           }
 
           public enum eLicenseType
@@ -40,5 +62,6 @@ namespace Ex03.GarageLogic
                B1,
                B2
           }
+
      }
 }

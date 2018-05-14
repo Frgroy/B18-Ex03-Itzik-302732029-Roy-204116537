@@ -12,7 +12,6 @@ namespace Ex03.GarageLogic
           private const float k_TruckVolumeOfFuelTank = 115;
           private bool m_IsTrunkCool;
           private float m_TrunkCapacity;
-          private EnergySource m_Engine;
 
           public bool IsTrunkCool
           {
@@ -26,10 +25,23 @@ namespace Ex03.GarageLogic
                set { m_TrunkCapacity = value; }
           }
 
-          public EnergySource Engine
+          public Truck (VehicleEntranceForm i_VehicleEntranceForm)
+               : base(i_VehicleEntranceForm.VehicleModel, i_VehicleEntranceForm.LicenseNumber)
           {
-               get { return m_Engine; }
-               set { m_Engine = value; }
+               m_IsTrunkCool = i_VehicleEntranceForm.IsTruckTrunkCool;
+               m_TrunkCapacity = i_VehicleEntranceForm.TruckTrunkCapacity;
+               Engine = new GasolineEngine(
+                    i_VehicleEntranceForm.FuelType, 
+                    i_VehicleEntranceForm.CurrentFuelAmount, 
+                    k_TruckVolumeOfFuelTank);
+               for (int i = 0; i < k_NumberOfWheelsInTruck; i++)
+               {
+                    Wheel WheelToAdd = new Wheel(
+                         i_VehicleEntranceForm.WheelManufacturer,
+                         i_VehicleEntranceForm.WheelCurrentAirPressure,
+                         k_MaximumAirPressure);
+                    Wheels.Add(WheelToAdd);
+               }
           }
      }
 }

@@ -1,9 +1,9 @@
-﻿using Ex03.GarageLogic;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Text.RegularExpressions;
+using Ex03.GarageLogic;
 
 namespace Ex03.ConsoleUI
 {
@@ -20,12 +20,10 @@ namespace Ex03.ConsoleUI
                     {
                          HandleKeyPress(Console.ReadLine(), garage, ref isProgramActive);
                     }
-
                     catch (FormatException ex)
                     {
                          Console.WriteLine(ex.Message.ToString());
                     }
-
                     catch (Exception ex)
                     {
                          Console.WriteLine(ex.Message.ToString());
@@ -83,7 +81,7 @@ namespace Ex03.ConsoleUI
                }
                else
                {
-                    throw(new ValueOutOfRangeException((int)eFunctionOption.EnterNewVehicle, (int)eFunctionOption.Exit));
+                    throw new ValueOutOfRangeException((int)eFunctionOption.EnterNewVehicle, (int)eFunctionOption.Exit);
                }
           }
 
@@ -102,6 +100,7 @@ namespace Ex03.ConsoleUI
                     PrintErrorMassage();
                     licenseNumber = GetLicenseNumber();
                }
+
                i_Garage.InflateWheelsToMax(licenseNumber);
           }
 
@@ -146,6 +145,7 @@ namespace Ex03.ConsoleUI
                     PrintErrorMassage();
                     licenseNumber = GetLicenseNumber();
                }
+
                hoursAmount = GetHoursAmount();
 
                try
@@ -182,6 +182,7 @@ namespace Ex03.ConsoleUI
                     PrintErrorMassage();
                     licenseNumber = GetLicenseNumber();
                }
+
                newStatus = GetStatus();
                i_Garage.ChangeVehicleStatus(licenseNumber, newStatus);
           }
@@ -220,14 +221,12 @@ namespace Ex03.ConsoleUI
                     i_VehicleEnranceForm.CarColor = GetCarColor();
                     i_VehicleEnranceForm.CarDoorsNumber = GetCarDoorsNumber();
                }
-
                else if (i_VehicleEnranceForm.VehicleType == VehicleFactory.eVehicleType.ElectricMotorcycle
                     || i_VehicleEnranceForm.VehicleType == VehicleFactory.eVehicleType.GasolineMotorcycle)
                {
                     i_VehicleEnranceForm.MotorcycleEngineCapacity = GetMotorcycleEngineCapacity();
                     i_VehicleEnranceForm.MotorcycleLicenseType = GetMotorcycleLicenseType();
                }
-
                else if (i_VehicleEnranceForm.VehicleType == VehicleFactory.eVehicleType.Truck)
                {
                     i_VehicleEnranceForm.TruckTrunkCapacity = GetTruckTrunkCapacity();
@@ -242,7 +241,6 @@ namespace Ex03.ConsoleUI
                {
                     i_VehicleEnranceForm.RemainingBatteryHours = GetRemainingBatteryHours();
                }
-
                else
                {
                     i_VehicleEnranceForm.CurrentFuelAmount = GetCurrentFuelAmount();
@@ -311,9 +309,7 @@ namespace Ex03.ConsoleUI
           {
                foreach (var value in Enum.GetValues(typeof(T)))
                {
-                    Console.WriteLine("[{0}] {1}",
-                                      (int)value,
-                                      (T)value);
+                    Console.WriteLine("[{0}] {1}", (int)value, (T)value);
                }
           }
 
@@ -334,6 +330,7 @@ namespace Ex03.ConsoleUI
                          isLegalInput = true;
                     }
                }
+
                return int.Parse(userInput);
           }
 
@@ -438,7 +435,6 @@ namespace Ex03.ConsoleUI
                PrintEnumOptions<Motorcycle.eLicenseType>();
 
                return (Motorcycle.eLicenseType)GetEnumInput<Motorcycle.eLicenseType>();
-
           }
 
           public static float GetRemainingBatteryHours()
@@ -511,17 +507,19 @@ namespace Ex03.ConsoleUI
 
           public static bool GetCoolTruckTrunkSatus()
           {
-               bool isCool = false;
+               bool isTruckTrunkCool = false;
                string TruckTrunkCoolMessege = string.Format(
-          @"Is your turck's trunk cool?
+@"Is your turck's trunk cool?
 [1]Yes
 [2]No");
                Console.WriteLine(TruckTrunkCoolMessege);
                string TruckTrunkCapacityString = Console.ReadLine();
                if (int.Parse(TruckTrunkCapacityString) == 1)
-                    isCool = true;
+               {
+                    isTruckTrunkCool = true;
+               }
 
-               return isCool;
+               return isTruckTrunkCool;
           }
 
           public enum eFunctionOption

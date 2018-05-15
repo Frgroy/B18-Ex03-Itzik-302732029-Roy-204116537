@@ -43,8 +43,7 @@ namespace Ex03.GarageLogic
           }
 
           public Car(VehicleEntranceForm i_VehicleEntranceForm)
-               : base(i_VehicleEntranceForm.VehicleModel,
-                      i_VehicleEntranceForm.LicenseNumber)
+               : base(i_VehicleEntranceForm.VehicleModel, i_VehicleEntranceForm.LicenseNumber)
           {
                m_Color = i_VehicleEntranceForm.CarColor;
                m_DoorsNumber = i_VehicleEntranceForm.CarDoorsNumber;
@@ -82,6 +81,7 @@ namespace Ex03.GarageLogic
                str.AppendFormat("Car Color: {0}{1}", m_Color, Environment.NewLine);
                return str.ToString();
           }
+
           public override List<string> GetSpecificInfo()
           {
                List<string> infoArray = new List<string>();

@@ -26,7 +26,6 @@ namespace Ex03.GarageLogic
           {
                get { return m_VehicleType; }
                set { m_VehicleType = value; }
-
           }
 
           public string VehicleModel

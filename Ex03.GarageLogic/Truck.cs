@@ -35,7 +35,7 @@ namespace Ex03.GarageLogic
                set { m_TrunkCapacity = value; }
           }
 
-          public Truck (VehicleEntranceForm i_VehicleEntranceForm)
+          public Truck(VehicleEntranceForm i_VehicleEntranceForm)
                : base(i_VehicleEntranceForm.VehicleModel, i_VehicleEntranceForm.LicenseNumber)
           {
                m_IsTrunkCool = i_VehicleEntranceForm.IsTruckTrunkCool;

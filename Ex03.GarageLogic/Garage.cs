@@ -12,7 +12,6 @@ namespace Ex03.GarageLogic
                Fixed,
                Payed,
                All
-
           }
 
           public enum eVehicleStatus
@@ -166,7 +165,7 @@ namespace Ex03.GarageLogic
                          }
                          else
                          {
-                              throw (new ArgumentException());
+                              throw new ArgumentException();
                          }
                     }
                }

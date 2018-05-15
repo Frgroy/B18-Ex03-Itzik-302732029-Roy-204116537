@@ -15,7 +15,7 @@ namespace Ex03.GarageLogic
                set { m_EnergyPercentage = value; }
           }
 
-          public EnergySource (float i_EnergyPercentage)
+          public EnergySource(float i_EnergyPercentage)
           {
                m_EnergyPercentage = i_EnergyPercentage;
           }
@@ -32,6 +32,5 @@ namespace Ex03.GarageLogic
                Gasoline,
                Electric
           }
-     }
-    
+     } 
 }

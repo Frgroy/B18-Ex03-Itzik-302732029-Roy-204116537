@@ -6,8 +6,8 @@ namespace Ex03.GarageLogic
 {
      public class ElectricEngine : EnergySource
      {
-          private float m_RemainingBatteryHours;
           private readonly float r_MaxBatteryHours;
+          private float m_RemainingBatteryHours;
 
           public float RemainingBatteryHours
           {
@@ -24,8 +24,8 @@ namespace Ex03.GarageLogic
                get { return r_MaxBatteryHours; }
           }
 
-          public ElectricEngine (float i_RemainingBatteryHours, float i_MaxBatteryHours)
-               : base(i_RemainingBatteryHours / i_MaxBatteryHours * k_ToDecimalPrecentage)
+          public ElectricEngine(float i_RemainingBatteryHours, float i_MaxBatteryHours) : 
+               base(i_RemainingBatteryHours / i_MaxBatteryHours * k_ToDecimalPrecentage)
           {
                r_MaxBatteryHours = i_MaxBatteryHours;
                if (i_RemainingBatteryHours <= r_MaxBatteryHours)
@@ -46,12 +46,12 @@ namespace Ex03.GarageLogic
                }
                else
                {
-                    throw (new ValueOutOfRangeException(0, r_MaxBatteryHours - m_RemainingBatteryHours));
+                    throw new ValueOutOfRangeException(0, r_MaxBatteryHours - m_RemainingBatteryHours);
                }
           }
+
           public override string ToString()
           {
-
                StringBuilder str = new StringBuilder();
                str.AppendLine("Engine Properties:");
                str.AppendFormat("Engine Type {0} {1}", eEngineType.Electric, Environment.NewLine);

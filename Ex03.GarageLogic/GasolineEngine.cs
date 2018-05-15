@@ -6,9 +6,9 @@ namespace Ex03.GarageLogic
 {
      public class GasolineEngine : EnergySource
      {
+          private readonly float r_MaxFuelAmount;
           private eFuelType m_FuelType;
           private float m_CurrentFuelAmount;
-          private readonly float r_MaxFuelAmount;
 
           public eFuelType FuelType
           {
@@ -44,7 +44,7 @@ namespace Ex03.GarageLogic
                }
                else
                {
-                    throw (new ValueOutOfRangeException(0, r_MaxFuelAmount - m_CurrentFuelAmount));
+                    throw new ValueOutOfRangeException(0, r_MaxFuelAmount - m_CurrentFuelAmount);
                }
           }
 
@@ -70,6 +70,7 @@ namespace Ex03.GarageLogic
                Octan96,
                Octan98
           }
+
           public override string ToString()
           {
                StringBuilder str = new StringBuilder();

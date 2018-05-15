@@ -11,8 +11,8 @@ namespace Ex03.GarageLogic
           private const GasolineEngine.eFuelType k_MotorcycleFuelType = GasolineEngine.eFuelType.Octan96;
           private const float k_MotorcycleVolumeOfFuelTank = 6;
           private const float k_MaximumBatteryLifeHours = 1.8f;
-          private eLicenseType m_LicenseType;
           private readonly int r_EngineCapacity;
+          private eLicenseType m_LicenseType;
 
           public int EngineCapacity
           {
@@ -24,6 +24,7 @@ namespace Ex03.GarageLogic
                get { return m_LicenseType; }
                set { m_LicenseType = value; }
           }
+
           public override string ToString()
           {
                StringBuilder str = new StringBuilder();
@@ -33,6 +34,7 @@ namespace Ex03.GarageLogic
                str.AppendFormat("Engine Capacity: {0}{1}", r_EngineCapacity, Environment.NewLine);
                return str.ToString();
           }
+
           public Motorcycle(VehicleEntranceForm i_VehicleEntranceForm)
                : base(i_VehicleEntranceForm.VehicleModel, i_VehicleEntranceForm.LicenseNumber)
           {
@@ -77,6 +79,5 @@ namespace Ex03.GarageLogic
                B1,
                B2
           }
-
      }
 }

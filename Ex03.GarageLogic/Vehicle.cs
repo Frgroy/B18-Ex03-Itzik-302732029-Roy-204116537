@@ -22,6 +22,7 @@ namespace Ex03.GarageLogic
                str.AppendFormat(m_Wheels[0].ToString());
                return str.ToString();
           }
+
           public int NumberOfWheels
           {
                get { return r_NumberOfWheels; }
@@ -74,7 +75,5 @@ namespace Ex03.GarageLogic
           }
 
           public abstract List<string> GetSpecificInfo();
-
-
      }
 }

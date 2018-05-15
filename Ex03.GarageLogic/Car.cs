@@ -11,10 +11,6 @@ namespace Ex03.GarageLogic
           private const GasolineEngine.eFuelType k_CarFuelType = GasolineEngine.eFuelType.Octan98;
           private const float k_CarVolumeOfFuelTank = 45;
           private const float k_MaximumBatteryLifeHours = 3.2f;
-          private const int k_FamilyCarWithTrunkDoors = 5;
-          private const int k_FamilyCarDoors = 4;
-          private const int k_MiniCarWithTrunkDoors = 3;
-          private const int k_MiniCarDoors = 2;
           private eCarColor m_Color;
           private int m_DoorsNumber;
 
@@ -36,6 +32,14 @@ namespace Ex03.GarageLogic
                Blue,
                White,
                Black
+          }
+
+          public enum eCarDoors
+          {
+               Two = 2,
+               Three,
+               Four,
+               Five
           }
 
           public Car(VehicleEntranceForm i_VehicleEntranceForm)

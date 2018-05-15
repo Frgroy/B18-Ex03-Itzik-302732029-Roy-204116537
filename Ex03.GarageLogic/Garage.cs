@@ -6,10 +6,17 @@ namespace Ex03.GarageLogic
 {
      public class Garage
      {
+          public enum eFilter
+          {
+               All = 1,
+               InRepair,
+               Fixed,
+               Payed
+          }
+
           public enum eVehicleStatus
           {
-               Any = 1,
-               InRepair,
+               InRepair = 1,
                Fixed,
                Payed
           }
@@ -45,6 +52,14 @@ namespace Ex03.GarageLogic
                     set { m_VehicleStatus = value; }
                }
 
+               public VehicleInfo(Vehicle i_Vehicle, string i_OwnerName, string i_OwnerPhoneNumber)
+               {
+                    m_Vehicle = i_Vehicle;
+                    m_OwnerName = i_OwnerName;
+                    m_OwnerPhoneNumber = i_OwnerPhoneNumber;
+                    m_VehicleStatus = eVehicleStatus.InRepair;
+               }
+
                public List<string> GetVehicleInfo()
                {
                     List<string> vehicleInfoList = new List<string>();
@@ -69,10 +84,10 @@ namespace Ex03.GarageLogic
                m_VehiclesInfo = new List<VehicleInfo>();
           }
 
-          public void EnterNewVehicle(VehicleInfo i_NewVehicleToEnter)
+          public void EnterNewVehicle(Vehicle i_NewVehicleToEnter, VehicleEntranceForm i_VehicleForm)
           {
-
-               m_VehiclesInfo.Add(i_NewVehicleToEnter);
+               VehicleInfo newVehicleInfo = new VehicleInfo(i_NewVehicleToEnter, i_VehicleForm.OwnerName, i_VehicleForm.OwnerPhone);
+               m_VehiclesInfo.Add(newVehicleInfo);
           }
 
           public bool FindLicenseInGarage(string i_LicenseNumber)
@@ -186,6 +201,21 @@ namespace Ex03.GarageLogic
                }
 
                return specificVehicleInfo;
+          }
+
+          public bool IsExistInGarage(string i_licenseNumber)
+          {
+               bool isLicenseNumberExists = false;
+
+               foreach(VehicleInfo vehicleInfo in m_VehiclesInfo)
+               {
+                    if (i_licenseNumber == vehicleInfo.Vehicle.LicenseNumber)
+                    {
+                         isLicenseNumberExists = true;
+                    }
+               }
+
+               return isLicenseNumberExists;
           }
      }
 }

@@ -6,10 +6,17 @@ namespace Ex03.GarageLogic
 {
      public abstract class Vehicle
      {
+          private int m_NumberOfWheels;
           private string m_Model;
           private string m_LicenseNumber;
-          private List<Wheel> m_Wheels;
+          private List<Wheel> m_Wheels = new List<Wheel>();
           private EnergySource m_Engine;
+
+          public int NumberOfWheels
+          {
+               get { return m_NumberOfWheels; }
+               set { m_NumberOfWheels = value; }
+          }
 
           public string Model
           {

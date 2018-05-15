@@ -8,10 +8,11 @@ namespace Ex03.GarageLogic
      {
           public enum eFilter
           {
-               All = 1,
-               InRepair,
+               InRepair = 1,
                Fixed,
-               Payed
+               Payed,
+               All
+
           }
 
           public enum eVehicleStatus
@@ -60,24 +61,11 @@ namespace Ex03.GarageLogic
                     m_VehicleStatus = eVehicleStatus.InRepair;
                }
 
-               public List<string> GetVehicleInfo()
-               {
-                    List<string> vehicleInfoList = new List<string>();
-                    vehicleInfoList.AddRange(m_Vehicle.GetBasicInfo());
-                    vehicleInfoList.AddRange(m_Vehicle.GetSpecificInfo());
-                    vehicleInfoList.Add(m_OwnerName);
-                    vehicleInfoList.Add(m_VehicleStatus.ToString());
-                    return vehicleInfoList;
-               }
                public override string ToString()
                {
                     StringBuilder str = new StringBuilder();
-
                     str.AppendFormat("{0}, {1}", m_Vehicle.ToString(), Environment.NewLine);
-
-                   // str.AppendLine("Wheel Properties:");
-                    //str.AppendFormat("Wheel Manufacturer: {0}", m_Manufacturer);
-                    
+                                        
                     return str.ToString();
                }
           }
@@ -115,29 +103,29 @@ namespace Ex03.GarageLogic
                return isLicenseNumberFound;
           }
 
-          public List<string> DisplayAllLicenseNumberOfVehicles()
+          public string DisplayAllLicenseNumberOfVehicles()
           {
-               List<string> allLicenseNumberOfVehicles = new List<string>();
+               StringBuilder allLicenseNumberOfVehicles = new StringBuilder();
                foreach (VehicleInfo vehicle in m_VehiclesInfo)
                {
-                    allLicenseNumberOfVehicles.Add(vehicle.Vehicle.LicenseNumber);
+                    allLicenseNumberOfVehicles.AppendLine(vehicle.Vehicle.LicenseNumber);
                }
 
-               return allLicenseNumberOfVehicles;
+               return allLicenseNumberOfVehicles.ToString();
           }
 
-          public List<string> DisplayLicenseNumberOfVehiclesByStatus(eVehicleStatus i_RequestedStatusToFilter)
+          public string DisplayLicenseNumberOfVehiclesByStatus(eVehicleStatus i_RequestedStatusToFilter)
           {
-               List<string> LicenseNumberOfVehiclesByStatus = new List<string>();
+               StringBuilder licenseNumberOfVehiclesByStatus = new StringBuilder();
                foreach (VehicleInfo vehicleInfo in m_VehiclesInfo)
                {
                     if (vehicleInfo.VehicleStatus == i_RequestedStatusToFilter)
                     {
-                         LicenseNumberOfVehiclesByStatus.Add(vehicleInfo.Vehicle.LicenseNumber);
+                         licenseNumberOfVehiclesByStatus.AppendLine(vehicleInfo.Vehicle.LicenseNumber);
                     }
                }
 
-               return LicenseNumberOfVehiclesByStatus;
+               return licenseNumberOfVehiclesByStatus.ToString();
           }
 
           public void ChangeVehicleStatus(string i_LicenseNumber, eVehicleStatus i_RecievedNewStatus)

@@ -7,23 +7,17 @@ namespace Ex03.GarageLogic
      public class GasolineEngine : EnergySource
      {
           private readonly float r_MaxFuelAmount;
-          private eFuelType m_FuelType;
+          private readonly eFuelType r_FuelType;
           private float m_CurrentFuelAmount;
 
           public eFuelType FuelType
           {
-               get { return m_FuelType; }
-               set { m_FuelType = value; }
+               get { return r_FuelType; }
           }
 
           public float CurrentFuelAmount
           {
                get { return m_CurrentFuelAmount; }
-               set
-               {
-                    m_CurrentFuelAmount = value;
-                    EnergyPercentage = m_CurrentFuelAmount / r_MaxFuelAmount * k_ToDecimalPrecentage;
-               }
           }
 
           public float MaxFuelAmount
@@ -33,7 +27,7 @@ namespace Ex03.GarageLogic
 
           public void Fuel(float i_FuelAmountToAdd, eFuelType i_fuelType)
           {
-               if (i_fuelType != m_FuelType)
+               if (i_fuelType != r_FuelType)
                {
                     throw new ArgumentException();
                }
@@ -41,6 +35,7 @@ namespace Ex03.GarageLogic
                if (m_CurrentFuelAmount + i_FuelAmountToAdd <= r_MaxFuelAmount)
                {
                     m_CurrentFuelAmount += i_FuelAmountToAdd;
+                    EnergyPercentage = m_CurrentFuelAmount / r_MaxFuelAmount * k_ToDecimalPrecentage;
                }
                else
                {
@@ -51,7 +46,7 @@ namespace Ex03.GarageLogic
           public GasolineEngine(eFuelType i_FuelType, float i_CurrentFuelAmount, float i_MaxFuelAmount)
                : base(i_CurrentFuelAmount / i_MaxFuelAmount * k_ToDecimalPrecentage)
           {
-               m_FuelType = i_FuelType;
+               r_FuelType = i_FuelType;
                r_MaxFuelAmount = i_MaxFuelAmount;
                if (i_CurrentFuelAmount <= r_MaxFuelAmount)
                {

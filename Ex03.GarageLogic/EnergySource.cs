@@ -9,7 +9,7 @@ namespace Ex03.GarageLogic
           protected const int k_ToDecimalPrecentage = 100;
           private float m_EnergyPercentage;
 
-          public float EnergyPercentage
+          protected float EnergyPercentage
           {
                get { return m_EnergyPercentage; }
                set { m_EnergyPercentage = value; }

@@ -7,7 +7,7 @@ using Ex03.GarageLogic;
 
 namespace Ex03.ConsoleUI
 {
-     public static class GarageProgram
+     public static class GarageUI
      {
           public static void Run()
           {

@@ -8,7 +8,7 @@ namespace Ex03.GarageLogic
      {
           private eFuelType m_FuelType;
           private float m_CurrentFuelAmount;
-          private float m_MaxFuelAmount;
+          private readonly float r_MaxFuelAmount;
 
           public eFuelType FuelType
           {
@@ -24,8 +24,7 @@ namespace Ex03.GarageLogic
 
           public float MaxFuelAmount
           {
-               get { return m_MaxFuelAmount; }
-               set { m_MaxFuelAmount = value; }
+               get { return r_MaxFuelAmount; }
           }
 
           public void Fuel(float i_FuelAmountToAdd, eFuelType i_fuelType)
@@ -35,13 +34,13 @@ namespace Ex03.GarageLogic
                     throw new ArgumentException();
                }
 
-               if (m_CurrentFuelAmount + i_FuelAmountToAdd <= m_MaxFuelAmount)
+               if (m_CurrentFuelAmount + i_FuelAmountToAdd <= r_MaxFuelAmount)
                {
                     m_CurrentFuelAmount += i_FuelAmountToAdd;
                }
                else
                {
-                    throw (new ValueOutOfRangeException(0, m_MaxFuelAmount - m_CurrentFuelAmount));
+                    throw (new ValueOutOfRangeException(0, r_MaxFuelAmount - m_CurrentFuelAmount));
                }
           }
 
@@ -50,7 +49,7 @@ namespace Ex03.GarageLogic
           {
                m_FuelType = i_FuelType;
                m_CurrentFuelAmount = i_CurrentFuelAmount;
-               m_MaxFuelAmount = i_MaxFuelAmount;
+               r_MaxFuelAmount = i_MaxFuelAmount;
           }
 
           public enum eFuelType
@@ -59,6 +58,15 @@ namespace Ex03.GarageLogic
                Octan95,
                Octan96,
                Octan98
+          }
+          public override string ToString()
+          {
+               StringBuilder str = new StringBuilder();
+               str.AppendLine("Engine Properties:");
+               str.AppendFormat("Engine Type {0} {1}", eEngineType.Gasoline, Environment.NewLine);
+               str.AppendLine(base.ToString());
+               str.AppendFormat("remaining battery status {0}/{1} {2}", m_CurrentFuelAmount, r_MaxFuelAmount, Environment.NewLine);
+               return str.ToString();
           }
      }
 }

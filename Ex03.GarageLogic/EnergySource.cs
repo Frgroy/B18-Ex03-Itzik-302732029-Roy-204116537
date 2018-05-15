@@ -18,5 +18,19 @@ namespace Ex03.GarageLogic
           {
                m_EnergyPercentage = i_EnergyPercentage;
           }
+
+          public override string ToString()
+          {
+               StringBuilder str = new StringBuilder();
+               str.AppendFormat("Remaining energy: {0} {1} ", m_EnergyPercentage, Environment.NewLine);
+               return str.ToString();
+          }
+
+          public enum eEngineType
+          {
+               Gasoline,
+               Electric
+          }
      }
+    
 }

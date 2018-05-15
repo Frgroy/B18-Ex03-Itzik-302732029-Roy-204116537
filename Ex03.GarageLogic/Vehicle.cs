@@ -6,28 +6,35 @@ namespace Ex03.GarageLogic
 {
      public abstract class Vehicle
      {
-          private int m_NumberOfWheels;
-          private string m_Model;
-          private string m_LicenseNumber;
+          private readonly int r_NumberOfWheels;
+          private readonly string r_Model;
+          private readonly string r_LicenseNumber;
           private List<Wheel> m_Wheels = new List<Wheel>();
           private EnergySource m_Engine;
 
+          public override string ToString()
+          {
+               StringBuilder str = new StringBuilder();
+               str.AppendLine("Vehicle properties:");
+               str.AppendFormat("Vehicle model: {0}{1}", r_Model, Environment.NewLine);
+               str.AppendFormat("Licende Number: {0}{1}", r_LicenseNumber, Environment.NewLine);
+               str.AppendFormat(m_Engine.ToString());
+               str.AppendFormat(m_Wheels[0].ToString());
+               return str.ToString();
+          }
           public int NumberOfWheels
           {
-               get { return m_NumberOfWheels; }
-               set { m_NumberOfWheels = value; }
+               get { return r_NumberOfWheels; }
           }
 
           public string Model
           {
-               get { return m_Model; }
-               set { m_Model = value; }
+               get { return r_Model; }
           }
 
           public string LicenseNumber
           {
-               get { return m_LicenseNumber; }
-               set { m_LicenseNumber = value; }
+               get { return r_LicenseNumber; }
           }
 
           public EnergySource Engine
@@ -44,8 +51,8 @@ namespace Ex03.GarageLogic
 
           public Vehicle(string i_VehicleModel, string i_LicenseNumber)
           {
-               m_Model = i_VehicleModel;
-               m_LicenseNumber = i_LicenseNumber;
+               r_Model = i_VehicleModel;
+               r_LicenseNumber = i_LicenseNumber;
           }
 
           public void Inflate()
@@ -67,6 +74,7 @@ namespace Ex03.GarageLogic
           }
 
           public abstract List<string> GetSpecificInfo();
-     
+
+
      }
 }

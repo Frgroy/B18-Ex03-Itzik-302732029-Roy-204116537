@@ -12,12 +12,11 @@ namespace Ex03.GarageLogic
           private const float k_MotorcycleVolumeOfFuelTank = 6;
           private const float k_MaximumBatteryLifeHours = 1.8f;
           private eLicenseType m_LicenseType;
-          private int m_EngineCapacity;
+          private readonly int r_EngineCapacity;
 
           public int EngineCapacity
           {
-               get { return m_EngineCapacity; }
-               set { m_EngineCapacity = value; }
+               get { return r_EngineCapacity; }
           }
 
           public eLicenseType LicenseType
@@ -25,12 +24,20 @@ namespace Ex03.GarageLogic
                get { return m_LicenseType; }
                set { m_LicenseType = value; }
           }
-
+          public override string ToString()
+          {
+               StringBuilder str = new StringBuilder();
+               str.AppendLine(base.ToString());
+               str.AppendLine("Motorcycle Properties:");
+               str.AppendFormat("License Type: {0}{1}", m_LicenseType, Environment.NewLine);
+               str.AppendFormat("Engine Capacity: {0}{1}", r_EngineCapacity, Environment.NewLine);
+               return str.ToString();
+          }
           public Motorcycle(VehicleEntranceForm i_VehicleEntranceForm)
                : base(i_VehicleEntranceForm.VehicleModel, i_VehicleEntranceForm.LicenseNumber)
           {
                m_LicenseType = i_VehicleEntranceForm.MotorcycleLicenseType;
-               m_EngineCapacity = i_VehicleEntranceForm.MotorcycleEngineCapacity;
+               r_EngineCapacity = i_VehicleEntranceForm.MotorcycleEngineCapacity;
                if (i_VehicleEntranceForm.VehicleType == VehicleFactory.eVehicleType.ElectricMotorcycle)
                {
                     Engine = new ElectricEngine(
@@ -58,7 +65,7 @@ namespace Ex03.GarageLogic
           public override List<string> GetSpecificInfo()
           {
                List<string> infoArray = new List<string>();
-               infoArray.Add(m_EngineCapacity.ToString());
+               infoArray.Add(r_EngineCapacity.ToString());
                infoArray.Add(m_LicenseType.ToString());
                return infoArray;
           }

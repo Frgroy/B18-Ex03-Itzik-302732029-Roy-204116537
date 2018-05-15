@@ -36,7 +36,7 @@ namespace Ex03.ConsoleUI
           public static void PrintGarageMenu()
           {
                string garageMenu = string.Format(
-   @"Please choose one of the option below
+@"Please choose one of the option below
 [1] Enter new vehicle to the garage
 [2] Display all license number of vehicles in the garage
 [3] Change vehicle status
@@ -168,7 +168,7 @@ namespace Ex03.ConsoleUI
                     licenseNumber = GetLicenseNumber();
                }
 
-               i_Garage.GetSpecificVehicleInfo(licenseNumber);
+               Console.WriteLine(i_Garage.GetSpecificVehicleInfo(licenseNumber));
           }
 
           public static void ChangeVehicleStatusRoutine(Garage i_Garage)
@@ -265,7 +265,6 @@ namespace Ex03.ConsoleUI
           {
                Console.WriteLine("Enter owner's phone:");
                string ownerPhone = Console.ReadLine();
-               ownerPhone = Console.ReadLine();
 
                return ownerPhone;
           }
@@ -379,7 +378,7 @@ namespace Ex03.ConsoleUI
           public static void DisplayAllLicenseNumberInGarageRoutine(Garage i_Garage)
           {
                Garage.eFilter filterChoice;
-               List<string> listToPrint = new List<string>();
+               string listToPrint;
                filterChoice = GetFilter();
 
                if (filterChoice == Garage.eFilter.All)

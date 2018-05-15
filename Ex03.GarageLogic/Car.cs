@@ -73,6 +73,15 @@ namespace Ex03.GarageLogic
                }
           }
 
+          public override string ToString()
+          {
+               StringBuilder str = new StringBuilder();
+               str.AppendLine(base.ToString());
+               str.AppendLine("Car Properties:");
+               str.AppendFormat("Number of Doors: {0}{1}", m_DoorsNumber, Environment.NewLine);
+               str.AppendFormat("Car Color: {0}{1}", m_Color, Environment.NewLine);
+               return str.ToString();
+          }
           public override List<string> GetSpecificInfo()
           {
                List<string> infoArray = new List<string>();

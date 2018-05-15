@@ -13,6 +13,16 @@ namespace Ex03.GarageLogic
           private bool m_IsTrunkCool;
           private float m_TrunkCapacity;
 
+          public override string ToString()
+          {
+               StringBuilder str = new StringBuilder();
+               str.AppendLine(base.ToString());
+               str.AppendLine("Truck Properties:");
+               str.AppendFormat("Is Truck cool: {0}{1}", m_IsTrunkCool.ToString(), Environment.NewLine);
+               str.AppendFormat("Truck Capacity in m^3: {0}{1}", m_TrunkCapacity, Environment.NewLine);
+               return str.ToString();
+          }
+
           public bool IsTrunkCool
           {
                get { return m_IsTrunkCool; }

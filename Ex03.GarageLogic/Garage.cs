@@ -69,6 +69,17 @@ namespace Ex03.GarageLogic
                     vehicleInfoList.Add(m_VehicleStatus.ToString());
                     return vehicleInfoList;
                }
+               public override string ToString()
+               {
+                    StringBuilder str = new StringBuilder();
+
+                    str.AppendFormat("{0}, {1}", m_Vehicle.ToString(), Environment.NewLine);
+
+                   // str.AppendLine("Wheel Properties:");
+                    //str.AppendFormat("Wheel Manufacturer: {0}", m_Manufacturer);
+                    
+                    return str.ToString();
+               }
           }
 
           private List<VehicleInfo> m_VehiclesInfo;
@@ -189,14 +200,14 @@ namespace Ex03.GarageLogic
                }
           }
 
-          public List<string> GetSpecificVehicleInfo(string i_LicenseNumber)
+          public string GetSpecificVehicleInfo(string i_LicenseNumber)
           {
-               List<string> specificVehicleInfo = new List<string>();
+               string specificVehicleInfo = null;
                foreach (VehicleInfo vehicleInfo in m_VehiclesInfo)
                {
                     if (vehicleInfo.Vehicle.LicenseNumber == i_LicenseNumber)
                     {
-                         specificVehicleInfo.AddRange(vehicleInfo.GetVehicleInfo());
+                         specificVehicleInfo = vehicleInfo.ToString();
                     }
                }
 

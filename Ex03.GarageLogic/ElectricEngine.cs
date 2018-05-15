@@ -38,5 +38,15 @@ namespace Ex03.GarageLogic
                     throw (new ValueOutOfRangeException(0, r_MaxBatteryHours - m_RemainingBatteryHours));
                }
           }
+          public override string ToString()
+          {
+
+               StringBuilder str = new StringBuilder();
+               str.AppendLine("Engine Properties:");
+               str.AppendFormat("Engine Type {0} {1}", eEngineType.Electric, Environment.NewLine);
+               str.AppendLine(base.ToString());
+               str.AppendFormat("remaining battery status {0}/{1} {2}", m_RemainingBatteryHours, r_MaxBatteryHours, Environment.NewLine);
+               return str.ToString();
+          }
      }
 }

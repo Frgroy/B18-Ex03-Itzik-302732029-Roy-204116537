@@ -8,7 +8,7 @@ namespace Ex03.GarageLogic
      {
           private string m_Manufacturer;
           private float m_CurrentAirPressure;
-          private float m_MaxAirPressure;
+          private readonly float r_MaxAirPressure;
 
           public string Manufacturer
           {
@@ -24,32 +24,41 @@ namespace Ex03.GarageLogic
 
           public float MaxAirPressure
           {
-               get { return m_MaxAirPressure; }
-               set { m_MaxAirPressure = value; }
+               get { return r_MaxAirPressure; }
           }
 
           public Wheel (string i_Manufacturer, float i_CurrentAirPressure, float i_MaxAirPressure)
           {
                m_Manufacturer = i_Manufacturer;
                m_CurrentAirPressure = i_CurrentAirPressure;
-               m_MaxAirPressure = i_MaxAirPressure;
+               r_MaxAirPressure = i_MaxAirPressure;
           }
 
           public void InflateWheelToFull()
           {
-               m_CurrentAirPressure = m_MaxAirPressure;
+               m_CurrentAirPressure = r_MaxAirPressure;
           }
 
           public void InflateWheelByAmount(int i_AirAmountToAdd)
           {
-               if (m_CurrentAirPressure + i_AirAmountToAdd <= m_MaxAirPressure)
+               if (m_CurrentAirPressure + i_AirAmountToAdd <= r_MaxAirPressure)
                {
                     m_CurrentAirPressure += i_AirAmountToAdd;
                }
                else
                {
-                    throw (new ValueOutOfRangeException(0, m_MaxAirPressure - m_CurrentAirPressure));
+                    throw (new ValueOutOfRangeException(0, r_MaxAirPressure - m_CurrentAirPressure));
                }
+          }
+
+          public new string ToString()
+          {
+               StringBuilder str = new StringBuilder();
+               str.AppendLine("Wheel Properties:");
+               str.AppendFormat("Wheel Manufacturer: {0}{1}", m_Manufacturer, Environment.NewLine);
+               str.AppendFormat("Wheel current air pressure: {0} {1}", m_CurrentAirPressure, Environment.NewLine);
+               str.AppendFormat("Wheel max air pressure: {0}{1}", r_MaxAirPressure, Environment.NewLine);
+               return str.ToString();
           }
      }
 }

@@ -16,7 +16,15 @@ namespace Ex03.ConsoleUI
                while (isProgramActive == true)
                {
                     PrintGarageMenu();
-                    HandleKeyPress(Console.ReadLine(), garage, ref isProgramActive);
+                    try
+                    {
+                         HandleKeyPress(Console.ReadLine(), garage, ref isProgramActive);
+                    }
+
+                    catch (FormatException ex)
+                    {
+                         Console.WriteLine(ex.Message.ToString());
+                    }
                }
           }
 
@@ -37,7 +45,7 @@ namespace Ex03.ConsoleUI
 
           public static void HandleKeyPress(string i_UserInput, Garage i_Garage, ref bool i_IsProgramActive)
           {
-               int userChoice = int.Parse(i_UserInput); // maybe try-catch
+               int userChoice = int.Parse(i_UserInput);
                if (Enum.IsDefined(typeof(eFunctionOption), userChoice))
                {
                     switch (userChoice)
@@ -90,7 +98,6 @@ namespace Ex03.ConsoleUI
                     licenseNumber = GetLicenseNumber();
                }
                i_Garage.InflateWheelsToMax(licenseNumber);
-               
           }
 
           public static void FuelVehicleRoutine(Garage i_Garage)
@@ -111,14 +118,17 @@ namespace Ex03.ConsoleUI
 
                try
                {
-                    i_Garage.Fuel(licenseNumber, fuelType, fuelAmount);//exepction
-
+                    i_Garage.Fuel(licenseNumber, fuelType, fuelAmount);
                }
-               catch (Exception ex)
+               catch (ValueOutOfRangeException ex)
                {
 
                }
-               
+
+               catch (ArgumentException ex)
+               {
+
+               }
           }
 
           public static void ChargeVehicleRoutine(Garage i_Garage)
@@ -127,15 +137,33 @@ namespace Ex03.ConsoleUI
                float hoursAmount;
 
                licenseNumber = GetLicenseNumber();
+               while (!i_Garage.IsExistInGarage(licenseNumber))
+               {
+                    PrintErrorMassage();
+                    licenseNumber = GetLicenseNumber();
+               }
                hoursAmount = GetHoursAmount();
-               i_Garage.Charge(licenseNumber, hoursAmount);
+
+               try
+               {
+                    i_Garage.Charge(licenseNumber, hoursAmount);
+               }
+               catch (ValueOutOfRangeException ex)
+               {
+                    
+               }
           }
 
           public static void DisplayVehicleInfoRoutine(Garage i_Garage)
           {
                string licenseNumber;
-
                licenseNumber = GetLicenseNumber();
+               while (!i_Garage.IsExistInGarage(licenseNumber))
+               {
+                    PrintErrorMassage();
+                    licenseNumber = GetLicenseNumber();
+               }
+
                i_Garage.GetSpecificVehicleInfo(licenseNumber);
           }
 
@@ -145,6 +173,11 @@ namespace Ex03.ConsoleUI
                string licenseNumber;
 
                licenseNumber = GetLicenseNumber();
+               while (!i_Garage.IsExistInGarage(licenseNumber))
+               {
+                    PrintErrorMassage();
+                    licenseNumber = GetLicenseNumber();
+               }
                newStatus = GetStatus();
                i_Garage.ChangeVehicleStatus(licenseNumber, newStatus);
           }
@@ -159,7 +192,7 @@ namespace Ex03.ConsoleUI
 
                if (isFoundInGarage)
                {
-                    Console.WriteLine("Vehicle is already in garage");
+                    Console.WriteLine("Vehicle is already in garage, changing status to In Repair");
                     i_Garage.ChangeVehicleStatus(vehicleForm.LicenseNumber, Garage.eVehicleStatus.InRepair);
                }
                else
@@ -250,6 +283,7 @@ namespace Ex03.ConsoleUI
                return ownerName;
           }
 
+          /*
           public static bool IsUserInputLegal(string i_UserInput)
           {
                bool isLegalInput = false;
@@ -264,6 +298,8 @@ namespace Ex03.ConsoleUI
 
                return isLegalInput;
           }
+
+     */
 
           public static string GetLicenseNumber()
           {
@@ -280,62 +316,76 @@ namespace Ex03.ConsoleUI
 
           public static float GetHoursAmount()
           {
-               Console.WriteLine("Enter vehicle's license number");
-               string hoursAmountString = Console.ReadLine();
-               while (!Regex.IsMatch(hoursAmountString, @"/^[0-9]$/") || IsValueInRange(float.Parse(hoursAmountString, )
-                         {
-                    PrintErrorMassage();
-                    licenseNumber = Console.ReadLine();
-               }
-
-               return licenseNumber;
-
                Console.WriteLine("Enter hours amount to charge");
+               string hoursAmountString = Console.ReadLine();
+               while (!Regex.IsMatch(hoursAmountString, @"/^[0-9]$/"))
+               {
+                    PrintErrorMassage();
+                    hoursAmountString = Console.ReadLine();
+               }
 
                return float.Parse(hoursAmountString);
           }
 
           public static Garage.eVehicleStatus GetStatus()
           {
-               Console.WriteLine("Enter vehicle's new status");
-               foreach (var value in Enum.GetValues(typeof(Garage.eVehicleStatus)))
+               Console.WriteLine("Enter vehicle's new status:");
+               PrintEnumOptions<Garage.eVehicleStatus>();
+
+               return (Garage.eVehicleStatus)GetEnumInput<Garage.eVehicleStatus>();
+          }
+
+          public static void PrintEnumOptions<T>()
+          {
+               foreach (var value in Enum.GetValues(typeof(T)))
                {
                     Console.WriteLine("[{0}] {1}",
                                       (int)value,
                                       (Garage.eVehicleStatus)value);
                }
-               string filterChoiceString = Console.ReadLine();
+          }
 
-               return (Garage.eVehicleStatus)int.Parse(filterChoiceString);
+          public static int GetEnumInput<T>()
+          {
+               string userInput = Console.ReadLine();
+               bool isLegalInput = false;
+
+               while (!isLegalInput)
+               {
+                    if (!Enum.IsDefined(typeof(T), userInput))
+                    {
+                         PrintErrorMassage();
+                         userInput = Console.ReadLine();
+                    }
+                    else
+                    {
+                         isLegalInput = true;
+                    }
+               }
+               return int.Parse(userInput);
           }
 
           public static GasolineEngine.eFuelType GetFuelType()
           {
-               bool isLegalFuelType = false;
                Console.WriteLine("Enter vehicle's fuel type");
-               string fuelTypeString = Console.ReadLine();
+               PrintEnumOptions<GasolineEngine.eFuelType>();
 
-               while (!isLegalFuelType)
-               {
-                    if (!Enum.IsDefined(typeof(GasolineEngine.eFuelType), fuelTypeString))
-                    {
-                         PrintErrorMassage();
-                    }
-                    else
-                    {
-                         isLegalFuelType = true;
-                    }
-               }
-
-               return (GasolineEngine.eFuelType)int.Parse(fuelTypeString);
+               return (GasolineEngine.eFuelType)GetEnumInput<GasolineEngine.eFuelType>();
           }
 
           public static float GetFuelAmount()
           {
                Console.WriteLine("Enter gasoline amount to fill");
                string fuelAmountString = Console.ReadLine();
+               float fuelAmount;
 
-               return float.Parse(fuelAmountString);
+               while (!float.TryParse(fuelAmountString, out fuelAmount))
+               {
+                    PrintErrorMassage();
+                    fuelAmountString = Console.ReadLine();
+               }
+
+               return fuelAmount;
           }
 
           public static string GetVehicleModel()
@@ -347,15 +397,10 @@ namespace Ex03.ConsoleUI
 
           public static Garage.eFilter GetFilter()
           {
-               foreach (var value in Enum.GetValues(typeof(Garage.eFilter)))
-               {
-                    Console.WriteLine("[{0}] {1}",
-                                      (int)value,
-                                      (Garage.eFilter)value);
-               }
-               string filterChoiceString = Console.ReadLine();
+               Console.WriteLine("Enter requested filter");
+               PrintEnumOptions<Garage.eFilter>();
 
-               return (Garage.eFilter)int.Parse(filterChoiceString);
+               return (Garage.eFilter)GetEnumInput<Garage.eFilter>();
           }
 
           public static void DisplayAllLicenseNumberInGarageRoutine(Garage i_Garage)
@@ -379,104 +424,122 @@ namespace Ex03.ConsoleUI
           public static VehicleFactory.eVehicleType GetVehicleType()
           {
                Console.WriteLine("Enter your vehicle type:");
-               foreach (var value in Enum.GetValues(typeof(VehicleFactory.eVehicleType)))
-               {
-                    Console.WriteLine("[{0}] {1}",
-                                      (int)value,
-                                      (VehicleFactory.eVehicleType)value);
-               }
-               string vehicleTypeString = Console.ReadLine();
+               PrintEnumOptions<VehicleFactory.eVehicleType>();
 
-               return (VehicleFactory.eVehicleType)int.Parse(vehicleTypeString);
+               return (VehicleFactory.eVehicleType)GetEnumInput<VehicleFactory.eVehicleType>();
           }
 
           public static Car.eCarColor GetCarColor()
           {
                Console.WriteLine("Choose your car color:");
-               foreach (var value in Enum.GetValues(typeof(Car.eCarColor)))
-               {
-                    Console.WriteLine("[{0}] {1}",
-                                      (int)value,
-                                      (Car.eCarColor)value);
-               }
-               string colorString = Console.ReadLine();
+               PrintEnumOptions<Car.eCarColor>();
 
-               return (Car.eCarColor)int.Parse(colorString);
+               return (Car.eCarColor)GetEnumInput<Car.eCarColor>();
           }
 
           public static int GetCarDoorsNumber()
           {
                Console.WriteLine("Choose your car numbers of doors: ");
-               foreach (var value in Enum.GetValues(typeof(Car.eCarDoors)))
-               {
-                    Console.WriteLine("[{0}] {1}",
-                                      (int)value,
-                                      (Car.eCarDoors)value);
-               }
-               string doorNumberString = Console.ReadLine();
+               PrintEnumOptions<Car.eCarDoors>();
 
-               return int.Parse(doorNumberString);
+               return GetEnumInput<Car.eCarDoors>();
           }
 
           public static int GetMotorcycleEngineCapacity()
           {
                Console.WriteLine("Enter engine capacity: ");
                string engineCapacityString = Console.ReadLine();
+               int engineCapacity;
 
-               return int.Parse(engineCapacityString);
+               while (!int.TryParse(engineCapacityString, out engineCapacity))
+               {
+                    PrintErrorMassage();
+                    engineCapacityString = Console.ReadLine();
+               }
+
+               return engineCapacity;
           }
 
           public static Motorcycle.eLicenseType GetMotorcycleLicenseType()
           {
                Console.WriteLine("Choose your license type:");
-               foreach (var value in Enum.GetValues(typeof(Motorcycle.eLicenseType)))
-               {
-                    Console.WriteLine("[{0}] {1}",
-                                      (int)value,
-                                      (Motorcycle.eLicenseType)value);
-               }
-               string motorcycleLicenseTypeString = Console.ReadLine();
+               PrintEnumOptions<Motorcycle.eLicenseType>();
 
-               return (Motorcycle.eLicenseType)int.Parse(motorcycleLicenseTypeString);
+               return (Motorcycle.eLicenseType)GetEnumInput<Motorcycle.eLicenseType>();
+
           }
 
           public static float GetRemainingBatteryHours()
           {
                Console.WriteLine("Enter remaining battery hours: ");
                string remainingBatteryHoursString = Console.ReadLine();
+               float remainingBatteryHours;
 
-               return float.Parse(remainingBatteryHoursString);
+               while (!float.TryParse(remainingBatteryHoursString, out remainingBatteryHours))
+               {
+                    PrintErrorMassage();
+                    remainingBatteryHoursString = Console.ReadLine();
+               }
+
+               return remainingBatteryHours;
           }
 
           public static float GetCurrentFuelAmount()
           {
                Console.WriteLine("Enter current fuel amount: ");
-               string currentFuelAmountString = Console.ReadLine();
+               string currentFuelString = Console.ReadLine();
+               float currentFuelAmount;
 
-               return float.Parse(currentFuelAmountString);
+               while (!float.TryParse(currentFuelString, out currentFuelAmount))
+               {
+                    PrintErrorMassage();
+                    currentFuelString = Console.ReadLine();
+               }
+
+               return currentFuelAmount;
           }
 
           public static string GetWheelsManufacturer()
           {
                Console.WriteLine("Enter wheels manufacturer's name: ");
+               string wheelsManufacturer = Console.ReadLine();
+               while (!Regex.IsMatch(wheelsManufacturer, @"/^[A-Z,a-z,' ']{0,20}$/"))
+               {
+                    PrintErrorMassage();
+                    wheelsManufacturer = Console.ReadLine();
+               }
 
-               return Console.ReadLine();
+               return wheelsManufacturer;
           }
 
           public static float GetWheelsAirPressure()
           {
                Console.WriteLine("Enter wheels air pressure: ");
                string wheelsAirPressureString = Console.ReadLine();
+               float wheelsAirPressure;
 
-               return float.Parse(wheelsAirPressureString);
+               while (!float.TryParse(wheelsAirPressureString, out wheelsAirPressure))
+               {
+                    PrintErrorMassage();
+                    wheelsAirPressureString = Console.ReadLine();
+               }
+
+               return wheelsAirPressure;
           }
 
           public static int GetTruckTrunkCapacity()
           {
                Console.WriteLine("Enter trunk's truck capacity: ");
-               string TruckTrunkCapacityString = Console.ReadLine();
+               string trunkCapacityString = Console.ReadLine();
+               int trunkCapacity;
 
-               return int.Parse(TruckTrunkCapacityString);
+               while (!int.TryParse(trunkCapacityString, out trunkCapacity))
+               {
+                    PrintErrorMassage();
+                    trunkCapacityString = Console.ReadLine();
+               }
+
+               return trunkCapacity;
           }
 
           public static bool GetCoolTruckTrunkSatus()
@@ -496,7 +559,6 @@ namespace Ex03.ConsoleUI
 
           public enum eFunctionOption
           {
-               [Description("Efdjsakfsdj;asdjf;lskd")]
                EnterNewVehicle = 1,
                DisplayLicenseNumberInfo,
                ChangeStatus,

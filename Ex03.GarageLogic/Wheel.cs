@@ -35,14 +35,21 @@ namespace Ex03.GarageLogic
                m_MaxAirPressure = i_MaxAirPressure;
           }
 
-          public void InflateWheelToFull() //to do out of range exveption
+          public void InflateWheelToFull()
           {
                m_CurrentAirPressure = m_MaxAirPressure;
           }
 
-          public void InflateWheelByAmount(int i_AirAmountToAdd) //to do out of range exveption
+          public void InflateWheelByAmount(int i_AirAmountToAdd)
           {
-               m_CurrentAirPressure += i_AirAmountToAdd;
+               if (m_CurrentAirPressure + i_AirAmountToAdd <= m_MaxAirPressure)
+               {
+                    m_CurrentAirPressure += i_AirAmountToAdd;
+               }
+               else
+               {
+                    throw (new ValueOutOfRangeException(0, m_MaxAirPressure - m_CurrentAirPressure));
+               }
           }
      }
 }

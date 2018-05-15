@@ -25,6 +25,11 @@ namespace Ex03.ConsoleUI
                     {
                          Console.WriteLine(ex.Message.ToString());
                     }
+
+                    catch (Exception ex)
+                    {
+                         Console.WriteLine(ex.Message.ToString());
+                    }
                }
           }
 
@@ -78,7 +83,7 @@ namespace Ex03.ConsoleUI
                }
                else
                {
-                    PrintErrorMassage();
+                    throw(new ValueOutOfRangeException((int)eFunctionOption.EnterNewVehicle, (int)eFunctionOption.Exit));
                }
           }
 
@@ -120,14 +125,13 @@ namespace Ex03.ConsoleUI
                {
                     i_Garage.Fuel(licenseNumber, fuelType, fuelAmount);
                }
-               catch (ValueOutOfRangeException ex)
-               {
-
-               }
-
                catch (ArgumentException ex)
                {
-
+                    Console.WriteLine(ex.Message);
+               }
+               catch (ValueOutOfRangeException ex)
+               {
+                    Console.WriteLine(ex.Message);
                }
           }
 
@@ -150,7 +154,7 @@ namespace Ex03.ConsoleUI
                }
                catch (ValueOutOfRangeException ex)
                {
-                    
+                    Console.WriteLine(ex.Message);
                }
           }
 
@@ -261,11 +265,7 @@ namespace Ex03.ConsoleUI
           {
                Console.WriteLine("Enter owner's phone:");
                string ownerPhone = Console.ReadLine();
-               while (!Regex.IsMatch(ownerPhone, @"/^[0-9]{0,10}$/"))
-               {
-                    PrintErrorMassage();
-                    ownerPhone = Console.ReadLine();
-               }
+               ownerPhone = Console.ReadLine();
 
                return ownerPhone;
           }
@@ -274,42 +274,14 @@ namespace Ex03.ConsoleUI
           {
                Console.WriteLine("Enter owner's name:");
                string ownerName = Console.ReadLine();
-               while (!Regex.IsMatch(ownerName, @"/^[A-Z,a-z,' ']{0,20}$/"))
-               {
-                    PrintErrorMassage();
-                    ownerName = Console.ReadLine();
-               }
 
                return ownerName;
           }
-
-          /*
-          public static bool IsUserInputLegal(string i_UserInput)
-          {
-               bool isLegalInput = false;
-               int userInputResult;
-               if (int.TryParse(i_UserInput, out userInputResult))
-               {
-                    if (Regex.IsMatch(i_UserInput, "[1-8]"))
-                    {
-                         isLegalInput = true;
-                    }
-               }
-
-               return isLegalInput;
-          }
-
-     */
 
           public static string GetLicenseNumber()
           {
                Console.WriteLine("Enter vehicle's license number");
                string licenseNumber = Console.ReadLine();
-               while (!Regex.IsMatch(licenseNumber, @"/^[A-Z,a-z,0-9]{0,20}$/"))
-               {
-                    PrintErrorMassage();
-                    licenseNumber = Console.ReadLine();
-               }
 
                return licenseNumber;
           }
@@ -318,13 +290,14 @@ namespace Ex03.ConsoleUI
           {
                Console.WriteLine("Enter hours amount to charge");
                string hoursAmountString = Console.ReadLine();
-               while (!Regex.IsMatch(hoursAmountString, @"/^[0-9]$/"))
+               float hoursAmount;
+               while (!float.TryParse(hoursAmountString, out hoursAmount))
                {
                     PrintErrorMassage();
                     hoursAmountString = Console.ReadLine();
                }
 
-               return float.Parse(hoursAmountString);
+               return hoursAmount;
           }
 
           public static Garage.eVehicleStatus GetStatus()
@@ -341,7 +314,7 @@ namespace Ex03.ConsoleUI
                {
                     Console.WriteLine("[{0}] {1}",
                                       (int)value,
-                                      (Garage.eVehicleStatus)value);
+                                      (T)value);
                }
           }
 
@@ -352,7 +325,7 @@ namespace Ex03.ConsoleUI
 
                while (!isLegalInput)
                {
-                    if (!Enum.IsDefined(typeof(T), userInput))
+                    if (!Enum.IsDefined(typeof(T), int.Parse(userInput)))
                     {
                          PrintErrorMassage();
                          userInput = Console.ReadLine();
@@ -503,11 +476,6 @@ namespace Ex03.ConsoleUI
           {
                Console.WriteLine("Enter wheels manufacturer's name: ");
                string wheelsManufacturer = Console.ReadLine();
-               while (!Regex.IsMatch(wheelsManufacturer, @"/^[A-Z,a-z,' ']{0,20}$/"))
-               {
-                    PrintErrorMassage();
-                    wheelsManufacturer = Console.ReadLine();
-               }
 
                return wheelsManufacturer;
           }

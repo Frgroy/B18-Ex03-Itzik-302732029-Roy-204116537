@@ -155,16 +155,16 @@ namespace Ex03.GarageLogic
           {
                foreach (VehicleInfo vehicleInfo in m_VehiclesInfo)
                {
-                    if (vehicleInfo.Vehicle.LicenseNumber == i_LicenseNumber) //checks
+                    if (vehicleInfo.Vehicle.LicenseNumber == i_LicenseNumber)
                     {
                          GasolineEngine gasolineEngine = vehicleInfo.Vehicle.Engine as GasolineEngine;
                          if (gasolineEngine != null)
                          {
-                              gasolineEngine.Fuel(i_amountToAdd);
+                              gasolineEngine.Fuel(i_amountToAdd, i_fuelToAdd);
                          }
                          else
                          {
-                              throw new Exception();
+                              throw (new ArgumentException());
                          }
                     }
                }
@@ -174,7 +174,7 @@ namespace Ex03.GarageLogic
           {
                foreach (VehicleInfo vehicleInfo in m_VehiclesInfo)
                {
-                    if (vehicleInfo.Vehicle.LicenseNumber == i_LicenseNumber) //checks
+                    if (vehicleInfo.Vehicle.LicenseNumber == i_LicenseNumber)
                     {
                          ElectricEngine electricEngine = vehicleInfo.Vehicle.Engine as ElectricEngine;
                          if (electricEngine != null)
@@ -183,7 +183,7 @@ namespace Ex03.GarageLogic
                          }
                          else
                          {
-                              throw new Exception();
+                              throw new ArgumentException();
                          }
                     }
                }

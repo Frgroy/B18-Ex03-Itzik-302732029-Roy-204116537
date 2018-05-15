@@ -7,7 +7,7 @@ namespace Ex03.GarageLogic
      public class ElectricEngine : EnergySource
      {
           private float m_RemainingBatteryHours;
-          private float m_MaxBatteryHours;
+          private readonly float r_MaxBatteryHours;
 
           public float RemainingBatteryHours
           {
@@ -15,22 +15,28 @@ namespace Ex03.GarageLogic
                set { m_RemainingBatteryHours = value; }
           }
 
-          public float MaxBatteryHours //to do constants
+          public float MaxBatteryHours
           {
-               get { return m_MaxBatteryHours; }
-               set { m_MaxBatteryHours = value; }
+               get { return r_MaxBatteryHours; }
           }
 
           public ElectricEngine (float i_RemainingBatteryHours, float i_MaxBatteryHours)
                : base(i_RemainingBatteryHours / i_MaxBatteryHours * 100)
           {
                m_RemainingBatteryHours = i_RemainingBatteryHours;
-               m_MaxBatteryHours = i_MaxBatteryHours;
+               r_MaxBatteryHours = i_MaxBatteryHours;
           }
 
-          public void Recharge(float i_HoursToCharge)//to do excteption
+          public void Recharge(float i_HoursToCharge)
           {
-               m_RemainingBatteryHours += i_HoursToCharge;
+               if (m_RemainingBatteryHours + i_HoursToCharge <= r_MaxBatteryHours)
+               {
+                    m_RemainingBatteryHours += i_HoursToCharge;
+               }
+               else
+               {
+                    throw (new ValueOutOfRangeException(0, r_MaxBatteryHours - m_RemainingBatteryHours));
+               }
           }
      }
 }

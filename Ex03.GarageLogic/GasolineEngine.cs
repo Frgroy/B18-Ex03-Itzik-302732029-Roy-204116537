@@ -28,9 +28,21 @@ namespace Ex03.GarageLogic
                set { m_MaxFuelAmount = value; }
           }
 
-          public void Fuel(float i_FuelAmountToAdd)//to do out of range excepreiino
+          public void Fuel(float i_FuelAmountToAdd, eFuelType i_fuelType)
           {
-               m_CurrentFuelAmount += i_FuelAmountToAdd;
+               if (i_fuelType != m_FuelType)
+               {
+                    throw new ArgumentException();
+               }
+
+               if (m_CurrentFuelAmount + i_FuelAmountToAdd <= m_MaxFuelAmount)
+               {
+                    m_CurrentFuelAmount += i_FuelAmountToAdd;
+               }
+               else
+               {
+                    throw (new ValueOutOfRangeException(0, m_MaxFuelAmount - m_CurrentFuelAmount));
+               }
           }
 
           public GasolineEngine(eFuelType i_FuelType, float i_CurrentFuelAmount, float i_MaxFuelAmount)

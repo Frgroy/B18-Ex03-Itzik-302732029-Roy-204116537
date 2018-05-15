@@ -12,7 +12,11 @@ namespace Ex03.GarageLogic
           public float RemainingBatteryHours
           {
                get { return m_RemainingBatteryHours; }
-               set { m_RemainingBatteryHours = value; }
+               set
+               {
+                    m_RemainingBatteryHours = value;
+                    EnergyPercentage = m_RemainingBatteryHours / r_MaxBatteryHours * k_ToDecimalPrecentage;
+               }
           }
 
           public float MaxBatteryHours
@@ -21,10 +25,17 @@ namespace Ex03.GarageLogic
           }
 
           public ElectricEngine (float i_RemainingBatteryHours, float i_MaxBatteryHours)
-               : base(i_RemainingBatteryHours / i_MaxBatteryHours * 100)
+               : base(i_RemainingBatteryHours / i_MaxBatteryHours * k_ToDecimalPrecentage)
           {
-               m_RemainingBatteryHours = i_RemainingBatteryHours;
                r_MaxBatteryHours = i_MaxBatteryHours;
+               if (i_RemainingBatteryHours <= r_MaxBatteryHours)
+               {
+                    m_RemainingBatteryHours = i_RemainingBatteryHours;
+               }
+               else
+               {
+                    throw new ValueOutOfRangeException(0, r_MaxBatteryHours);
+               }
           }
 
           public void Recharge(float i_HoursToCharge)

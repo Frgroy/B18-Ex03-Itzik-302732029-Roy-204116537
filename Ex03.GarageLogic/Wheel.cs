@@ -30,8 +30,15 @@ namespace Ex03.GarageLogic
           public Wheel (string i_Manufacturer, float i_CurrentAirPressure, float i_MaxAirPressure)
           {
                m_Manufacturer = i_Manufacturer;
-               m_CurrentAirPressure = i_CurrentAirPressure;
                r_MaxAirPressure = i_MaxAirPressure;
+               if (i_CurrentAirPressure <= r_MaxAirPressure)
+               {
+                    m_CurrentAirPressure = i_CurrentAirPressure;
+               }
+               else
+               {
+                    throw new ValueOutOfRangeException(0, r_MaxAirPressure);
+               }
           }
 
           public void InflateWheelToFull()

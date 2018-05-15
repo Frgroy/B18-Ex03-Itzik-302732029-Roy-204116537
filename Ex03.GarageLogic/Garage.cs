@@ -64,7 +64,10 @@ namespace Ex03.GarageLogic
                public override string ToString()
                {
                     StringBuilder str = new StringBuilder();
-                    str.AppendFormat("{0}, {1}", m_Vehicle.ToString(), Environment.NewLine);
+                    str.AppendFormat("Owner Name: {0}{1}", m_OwnerName, Environment.NewLine);
+                    str.AppendFormat("Phone Number: {0}{1}", m_OwnerPhoneNumber, Environment.NewLine);
+                    str.AppendFormat("Vehicle status: {0}{1}", m_VehicleStatus, Environment.NewLine);
+                    str.AppendFormat("{0} {1}", m_Vehicle.ToString(), Environment.NewLine);
                                         
                     return str.ToString();
                }

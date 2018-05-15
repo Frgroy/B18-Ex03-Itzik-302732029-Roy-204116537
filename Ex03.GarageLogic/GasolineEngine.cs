@@ -19,7 +19,11 @@ namespace Ex03.GarageLogic
           public float CurrentFuelAmount
           {
                get { return m_CurrentFuelAmount; }
-               set { m_CurrentFuelAmount = value; }
+               set
+               {
+                    m_CurrentFuelAmount = value;
+                    EnergyPercentage = m_CurrentFuelAmount / r_MaxFuelAmount * k_ToDecimalPrecentage;
+               }
           }
 
           public float MaxFuelAmount
@@ -45,11 +49,18 @@ namespace Ex03.GarageLogic
           }
 
           public GasolineEngine(eFuelType i_FuelType, float i_CurrentFuelAmount, float i_MaxFuelAmount)
-               : base(i_CurrentFuelAmount / i_MaxFuelAmount * 100)
+               : base(i_CurrentFuelAmount / i_MaxFuelAmount * k_ToDecimalPrecentage)
           {
                m_FuelType = i_FuelType;
-               m_CurrentFuelAmount = i_CurrentFuelAmount;
                r_MaxFuelAmount = i_MaxFuelAmount;
+               if (i_CurrentFuelAmount <= r_MaxFuelAmount)
+               {
+                    m_CurrentFuelAmount = i_CurrentFuelAmount;
+               }
+               else
+               {
+                    throw new ValueOutOfRangeException(0, r_MaxFuelAmount);
+               }
           }
 
           public enum eFuelType

@@ -10,7 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C3A5BA6B-E8E8-46A6-9AF7-F87A81B098C1}"
 	ProjectSection(SolutionItems) = preProject
 		B18-Ex03-Itzik-302732029-Roy-204116537.docx = B18-Ex03-Itzik-302732029-Roy-204116537.docx
-		EXERCISE CHECKING REPORT DN MTA B18 Ex03 Itzik 302732029 Roy 204116537.txt = EXERCISE CHECKING REPORT DN MTA B18 Ex03 Itzik 302732029 Roy 204116537.txt
+		ExerciseCheckingReport.txt = ExerciseCheckingReport.txt
 	EndProjectSection
 EndProject
 Global

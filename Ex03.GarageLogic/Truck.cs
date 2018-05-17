@@ -55,7 +55,7 @@ namespace Ex03.GarageLogic
 
           public enum eTruckTrunkCooling
           {
-               TrunkCooling,
+               TrunkCooling = 1,
                TrunkNotCooling
           }
      }

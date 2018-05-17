@@ -23,7 +23,7 @@ namespace Ex03.GarageLogic
           public override string ToString()
           {
                StringBuilder str = new StringBuilder();
-               str.AppendFormat("Remaining energy: {0}% {1} ", m_EnergyPercentage, Environment.NewLine);
+               str.AppendFormat("Remaining energy: {0}%", m_EnergyPercentage);
                return str.ToString();
           }
 

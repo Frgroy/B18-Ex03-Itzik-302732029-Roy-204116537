@@ -62,7 +62,7 @@ namespace Ex03.GarageLogic
                str.AppendLine("Wheel Properties:");
                str.AppendFormat("Wheel Manufacturer: {0}{1}", r_Manufacturer, Environment.NewLine);
                str.AppendFormat("Wheel current air pressure: {0} {1}", m_CurrentAirPressure, Environment.NewLine);
-               str.AppendFormat("Wheel max air pressure: {0}{1}", r_MaxAirPressure, Environment.NewLine);
+               str.AppendFormat("Wheel max air pressure: {0}", r_MaxAirPressure);
                return str.ToString();
           }
      }

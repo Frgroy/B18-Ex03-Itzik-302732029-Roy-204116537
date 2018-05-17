@@ -50,9 +50,9 @@ namespace Ex03.GarageLogic
           {
                StringBuilder str = new StringBuilder();
                str.AppendLine("Engine Properties:");
-               str.AppendFormat("Engine Type {0} {1}", eEngineType.Electric, Environment.NewLine);
+               str.AppendFormat("Engine Type: {0} {1}", eEngineType.Electric, Environment.NewLine);
                str.AppendLine(base.ToString());
-               str.AppendFormat("remaining battery status {0}/{1} {2}", m_RemainingBatteryHours, r_MaxBatteryHours, Environment.NewLine);
+               str.AppendFormat("Remaining battery status: {0}/{1} {2}", m_RemainingBatteryHours, r_MaxBatteryHours, Environment.NewLine);
                return str.ToString();
           }
      }

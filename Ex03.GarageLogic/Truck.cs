@@ -40,6 +40,7 @@ namespace Ex03.GarageLogic
 
           public override void FulfillVehicleDetails(VehicleEntranceForm i_VehicleEntranceForm)
           {
+               Model = i_VehicleEntranceForm.VehicleModel;
                m_TruckTrunkCooling = i_VehicleEntranceForm.IsTruckTrunkCool;
                m_TrunkCapacity = i_VehicleEntranceForm.TruckTrunkCapacity;
                Engine = new GasolineEngine(k_TruckFuelType, i_VehicleEntranceForm.CurrentFuelAmount, k_TruckVolumeOfFuelTank);

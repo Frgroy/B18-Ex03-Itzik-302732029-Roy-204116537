@@ -75,22 +75,17 @@ namespace Ex03.GarageLogic
           private const string k_NoSuitableVehicleMassage = "Entered vehicle is not in the garage, Try again";
           private const string k_NotLegalFuel = "Cannot fuel vehicle";
           private const string k_NotLegalCharge = "Cannot charge vehicle";
-          private readonly Dictionary<string, VehicleInfo> r_VehiclesInfo = null;
+          private Dictionary<string, VehicleInfo> r_VehiclesInfo = new Dictionary<string, VehicleInfo>();
 
           public Dictionary<string, VehicleInfo> VehiclesInfo
           {
                get { return r_VehiclesInfo; }
           }
 
-          public Garage()
-          {
-               r_VehiclesInfo = new Dictionary<string, VehicleInfo>();
-          }
-
           public void EnterNewVehicle(Vehicle i_NewVehicleToEnter, VehicleEntranceForm i_VehicleForm)
           {
                VehicleInfo newVehicleInfo = new VehicleInfo(i_NewVehicleToEnter, i_VehicleForm.OwnerName, i_VehicleForm.OwnerPhone);
-               r_VehiclesInfo.Add(i_VehicleForm.LicenseNumber, newVehicleInfo);
+               r_VehiclesInfo.Add(newVehicleInfo.Vehicle.LicenseNumber, newVehicleInfo);
           }
 
           public string DisplayAllLicenseNumberOfVehicles()

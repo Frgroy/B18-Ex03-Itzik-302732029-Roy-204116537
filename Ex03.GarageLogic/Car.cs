@@ -21,7 +21,7 @@ namespace Ex03.GarageLogic
 
           public override void FulfillVehicleDetails(VehicleEntranceForm i_VehicleEntranceForm)
           {
-
+               Model = i_VehicleEntranceForm.VehicleModel;
                m_Color = i_VehicleEntranceForm.CarColor;
                m_DoorsNumber = i_VehicleEntranceForm.CarDoorsNumber;
 

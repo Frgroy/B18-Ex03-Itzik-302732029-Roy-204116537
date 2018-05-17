@@ -31,6 +31,7 @@ namespace Ex03.GarageLogic
 
           public override void FulfillVehicleDetails(VehicleEntranceForm i_VehicleEntranceForm)
           {
+               Model = i_VehicleEntranceForm.VehicleModel;
                m_LicenseType = i_VehicleEntranceForm.MotorcycleLicenseType;
                m_EngineCapacity = i_VehicleEntranceForm.MotorcycleEngineCapacity;
                if (i_VehicleEntranceForm.VehicleType == VehicleFactory.eVehicleType.ElectricMotorcycle)

@@ -192,8 +192,8 @@ namespace Ex03.ConsoleUI
                VehicleEntranceForm vehicleForm = new VehicleEntranceForm();
                bool isFoundInGarage = false;
 
-               vehicleForm.LicenseNumber = GetLicenseNumber();
-               isFoundInGarage = m_Garage.FindLicenseInGarage(vehicleForm.LicenseNumber);
+               string licenseNumber = GetLicenseNumber();
+               isFoundInGarage = m_Garage.FindLicenseInGarage(licenseNumber);
 
                if (isFoundInGarage)
                {
@@ -202,13 +202,14 @@ namespace Ex03.ConsoleUI
                }
                else
                {
-                    vehicleForm.VehicleType = GetVehicleType();
+                    VehicleFactory.eVehicleType vehicleType = GetVehicleType();
+                    Vehicle newVehicleToInsert = VehicleFactory.CreateNewVehicle(licenseNumber, vehicleType);
                     vehicleForm.VehicleModel = GetVehicleModel();
                     GetSpecificVehicleInfo(vehicleForm);
                     GetEngineInfo(vehicleForm);
                     GetWheelsInfo(vehicleForm);
                     GetOwnerInfo(vehicleForm);
-                    Vehicle newVehicleToInsert = VehicleFactory.CreateNewVehicle(vehicleForm);
+                    newVehicleToInsert.FulfillVehicleDetails(vehicleForm);
                     m_Garage.EnterNewVehicle(newVehicleToInsert, vehicleForm);
                }
           }

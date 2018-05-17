@@ -12,6 +12,11 @@ namespace Ex03.GarageLogic
           private List<Wheel> m_Wheels = new List<Wheel>();
           private EnergySource m_Engine;
 
+          public Vehicle(string i_LicenseNumber)
+          {
+               r_LicenseNumber = i_LicenseNumber;
+          }
+
           public override string ToString()
           {
                StringBuilder str = new StringBuilder();
@@ -50,12 +55,6 @@ namespace Ex03.GarageLogic
                set { m_Wheels = value; }
           }
 
-          public Vehicle(string i_VehicleModel, string i_LicenseNumber)
-          {
-               r_Model = i_VehicleModel;
-               r_LicenseNumber = i_LicenseNumber;
-          }
-
           public void Inflate()
           {
                foreach (Wheel wheel in Wheels)
@@ -64,16 +63,6 @@ namespace Ex03.GarageLogic
                }
           }
 
-          public List<string> GetBasicInfo()
-          {
-               List<string> infoArray = new List<string>();
-               infoArray.Add(LicenseNumber);
-               infoArray.Add(Model);
-               infoArray.Add(Wheels[0].CurrentAirPressure.ToString());
-               infoArray.Add(Wheels[0].Manufacturer);
-               return infoArray;
-          }
-
-          public abstract List<string> GetSpecificInfo();
+          public abstract void FulfillVehicleDetails(VehicleEntranceForm i_VehicleEntranceForm);
      }
 }

@@ -10,34 +10,38 @@ namespace Ex03.GarageLogic
           private const int k_MaximumAirPressure = 28;
           private const GasolineEngine.eFuelType k_TruckFuelType = GasolineEngine.eFuelType.Soler;
           private const float k_TruckVolumeOfFuelTank = 115;
-          private readonly bool r_IsTrunkCool;
-          private readonly float r_TrunkCapacity;
+          private bool m_IsTrunkCool;
+          private float m_TrunkCapacity;
 
           public override string ToString()
           {
                StringBuilder str = new StringBuilder();
                str.AppendLine(base.ToString());
                str.AppendLine("Truck Properties:");
-               str.AppendFormat("Is Truck cool: {0}{1}", r_IsTrunkCool.ToString(), Environment.NewLine);
-               str.AppendFormat("Truck Capacity in m^3: {0}{1}", r_TrunkCapacity, Environment.NewLine);
+               str.AppendFormat("Is Truck cool: {0}{1}", m_IsTrunkCool.ToString(), Environment.NewLine);
+               str.AppendFormat("Truck Capacity in m^3: {0}{1}", m_TrunkCapacity, Environment.NewLine);
                return str.ToString();
           }
 
           public bool IsTrunkCool
           {
-               get { return r_IsTrunkCool; }
+               get { return m_IsTrunkCool; }
           }
 
           public float TrunkCapacity
           {
-               get { return r_TrunkCapacity; }
+               get { return m_TrunkCapacity; }
           }
 
-          public Truck(VehicleEntranceForm i_VehicleEntranceForm)
-               : base(i_VehicleEntranceForm.VehicleModel, i_VehicleEntranceForm.LicenseNumber)
+          public Truck(string i_LicenseNumber)
+               : base(i_LicenseNumber)
           {
-               r_IsTrunkCool = i_VehicleEntranceForm.IsTruckTrunkCool;
-               r_TrunkCapacity = i_VehicleEntranceForm.TruckTrunkCapacity;
+          }
+
+          public override void FulfillVehicleDetails(VehicleEntranceForm i_VehicleEntranceForm)
+          {
+               m_IsTrunkCool = i_VehicleEntranceForm.IsTruckTrunkCool;
+               m_TrunkCapacity = i_VehicleEntranceForm.TruckTrunkCapacity;
                Engine = new GasolineEngine(k_TruckFuelType, i_VehicleEntranceForm.CurrentFuelAmount, k_TruckVolumeOfFuelTank);
                for (int i = 0; i < k_NumberOfWheelsInTruck; i++)
                {
@@ -47,14 +51,7 @@ namespace Ex03.GarageLogic
                          k_MaximumAirPressure);
                     Wheels.Add(WheelToAdd);
                }
-          }
 
-          public override List<string> GetSpecificInfo()
-          {
-               List<string> infoArray = new List<string>();
-               infoArray.Add(r_TrunkCapacity.ToString());
-               infoArray.Add(r_IsTrunkCool.ToString());
-               return infoArray;
           }
      }
 }

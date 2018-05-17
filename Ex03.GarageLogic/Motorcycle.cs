@@ -11,34 +11,28 @@ namespace Ex03.GarageLogic
           private const GasolineEngine.eFuelType k_MotorcycleFuelType = GasolineEngine.eFuelType.Octan96;
           private const float k_MotorcycleVolumeOfFuelTank = 6;
           private const float k_MaximumBatteryLifeHours = 1.8f;
-          private readonly int r_EngineCapacity;
-          private readonly eLicenseType r_LicenseType;
+          private int m_EngineCapacity;
+          private eLicenseType m_LicenseType;
 
           public int EngineCapacity
           {
-               get { return r_EngineCapacity; }
+               get { return m_EngineCapacity; }
           }
 
           public eLicenseType LicenseType
           {
-               get { return r_LicenseType; }
+               get { return m_LicenseType; }
           }
 
-          public override string ToString()
-          {
-               StringBuilder str = new StringBuilder();
-               str.AppendLine(base.ToString());
-               str.AppendLine("Motorcycle Properties:");
-               str.AppendFormat("License Type: {0}{1}", r_LicenseType, Environment.NewLine);
-               str.AppendFormat("Engine Capacity: {0}{1}", r_EngineCapacity, Environment.NewLine);
-               return str.ToString();
+          public Motorcycle(string i_licenseNumber)
+               : base(i_licenseNumber)
+          {       
           }
 
-          public Motorcycle(VehicleEntranceForm i_VehicleEntranceForm)
-               : base(i_VehicleEntranceForm.VehicleModel, i_VehicleEntranceForm.LicenseNumber)
+          public override void FulfillVehicleDetails(VehicleEntranceForm i_VehicleEntranceForm)
           {
-               r_LicenseType = i_VehicleEntranceForm.MotorcycleLicenseType;
-               r_EngineCapacity = i_VehicleEntranceForm.MotorcycleEngineCapacity;
+               m_LicenseType = i_VehicleEntranceForm.MotorcycleLicenseType;
+               m_EngineCapacity = i_VehicleEntranceForm.MotorcycleEngineCapacity;
                if (i_VehicleEntranceForm.VehicleType == VehicleFactory.eVehicleType.ElectricMotorcycle)
                {
                     Engine = new ElectricEngine(i_VehicleEntranceForm.RemainingBatteryHours, k_MaximumBatteryLifeHours);
@@ -51,19 +45,21 @@ namespace Ex03.GarageLogic
                for (int i = 0; i < k_NumberOfWheelsInMotorcycle; i++)
                {
                     Wheel WheelToAdd = new Wheel(
-                         i_VehicleEntranceForm.WheelManufacturer, 
-                         i_VehicleEntranceForm.WheelCurrentAirPressure, 
+                         i_VehicleEntranceForm.WheelManufacturer,
+                         i_VehicleEntranceForm.WheelCurrentAirPressure,
                          k_MaximumAirPressure);
                     Wheels.Add(WheelToAdd);
                }
           }
 
-          public override List<string> GetSpecificInfo()
+          public override string ToString()
           {
-               List<string> infoArray = new List<string>();
-               infoArray.Add(r_EngineCapacity.ToString());
-               infoArray.Add(r_LicenseType.ToString());
-               return infoArray;
+               StringBuilder str = new StringBuilder();
+               str.AppendLine(base.ToString());
+               str.AppendLine("Motorcycle Properties:");
+               str.AppendFormat("License Type: {0}{1}", m_LicenseType, Environment.NewLine);
+               str.AppendFormat("Engine Capacity: {0}{1}", m_EngineCapacity, Environment.NewLine);
+               return str.ToString();
           }
 
           public enum eLicenseType

@@ -6,22 +6,22 @@ namespace Ex03.GarageLogic
 {
      public static class VehicleFactory
      {
-          public static Vehicle CreateNewVehicle(VehicleEntranceForm i_VehicleEntranceForm)
+          public static Vehicle CreateNewVehicle(string i_LicenseNumber, eVehicleType i_VehicleType)
           {
                Vehicle generatedVehicle = null;
-               if (i_VehicleEntranceForm.VehicleType == eVehicleType.ElectricCar
-                    || i_VehicleEntranceForm.VehicleType == eVehicleType.GasolineCar)
+               if (i_VehicleType == eVehicleType.ElectricCar
+                    || i_VehicleType == eVehicleType.GasolineCar)
                {
-                    generatedVehicle = new Car(i_VehicleEntranceForm);
+                    generatedVehicle = new Car(i_LicenseNumber);
                }
-               else if (i_VehicleEntranceForm.VehicleType == eVehicleType.ElectricMotorcycle
-                    || i_VehicleEntranceForm.VehicleType == eVehicleType.GasolineMotorcycle)
+               else if (i_VehicleType == eVehicleType.ElectricMotorcycle
+                    || i_VehicleType == eVehicleType.GasolineMotorcycle)
                {
-                    generatedVehicle = new Motorcycle(i_VehicleEntranceForm);
+                    generatedVehicle = new Motorcycle(i_LicenseNumber);
                }
-               else if (i_VehicleEntranceForm.VehicleType == eVehicleType.Truck)
+               else if (i_VehicleType == eVehicleType.Truck)
                {
-                    generatedVehicle = new Truck(i_VehicleEntranceForm);
+                    generatedVehicle = new Truck(i_LicenseNumber);
                }
 
                return generatedVehicle;

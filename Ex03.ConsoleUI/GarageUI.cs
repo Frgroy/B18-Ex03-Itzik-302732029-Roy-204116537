@@ -9,7 +9,16 @@ namespace Ex03.ConsoleUI
 {
      public class GarageUI
      {
+          private const string k_VehicleAlreadyInGarageMassage = "Vehicle is already in garage, changing status to In Repair";
+          private const string k_NoSuitableVehicleMassage = "Entered vehicle is not in the garage, Try again";
+          private const string k_IllegalInputMassage = "Illegal input, Try again";
+          private const string k_WheelsInflatedMassage = "Wheels inflated to maximum";
+          private const string k_VehicleFueledMassage = "Vehicle fueled";
+          private const string k_VehicleChargedMassage = "Vehicle charged";
+          private const string k_VehicleStatusChangedMassage = "Vehicle's status changed";
+          private const string k_VehicleEnteredMassage = "Vehicle entered to the garage";
           Garage m_Garage = new Garage();
+
           public void Run()
           {
                bool isProgramActive = true;
@@ -85,11 +94,6 @@ namespace Ex03.ConsoleUI
                }
           }
 
-          private void PrintErrorMassage()
-          {
-               Console.WriteLine("Illegal input. Please try again.");
-          }
-
           private void InflateWheelsToMaxRoutine()
           {
                string licenseNumber;
@@ -97,11 +101,12 @@ namespace Ex03.ConsoleUI
                licenseNumber = GetLicenseNumber();
                while (!m_Garage.IsExistInGarage(licenseNumber))
                {
-                    PrintErrorMassage();
+                    Console.WriteLine(k_NoSuitableVehicleMassage);
                     licenseNumber = GetLicenseNumber();
                }
 
                m_Garage.InflateWheelsToMax(licenseNumber);
+               Console.WriteLine(k_WheelsInflatedMassage);
           }
 
           private void FuelVehicleRoutine()
@@ -113,7 +118,7 @@ namespace Ex03.ConsoleUI
                licenseNumber = GetLicenseNumber();
                while (!m_Garage.IsExistInGarage(licenseNumber))
                {
-                    PrintErrorMassage();
+                    Console.WriteLine(k_NoSuitableVehicleMassage);
                     licenseNumber = GetLicenseNumber();
                }
 
@@ -123,6 +128,7 @@ namespace Ex03.ConsoleUI
                try
                {
                     m_Garage.Fuel(licenseNumber, fuelType, fuelAmount);
+                    Console.WriteLine(k_VehicleFueledMassage);
                }
                catch (ArgumentException ex)
                {
@@ -142,15 +148,15 @@ namespace Ex03.ConsoleUI
                licenseNumber = GetLicenseNumber();
                while (!m_Garage.IsExistInGarage(licenseNumber))
                {
-                    PrintErrorMassage();
+                    Console.WriteLine(k_NoSuitableVehicleMassage);
                     licenseNumber = GetLicenseNumber();
                }
 
                hoursAmount = GetHoursAmount();
-
                try
                {
                     m_Garage.Charge(licenseNumber, hoursAmount);
+                    Console.WriteLine(k_VehicleChargedMassage);
                }
                catch (ValueOutOfRangeException ex)
                {
@@ -164,11 +170,12 @@ namespace Ex03.ConsoleUI
                licenseNumber = GetLicenseNumber();
                while (!m_Garage.IsExistInGarage(licenseNumber))
                {
-                    PrintErrorMassage();
+                    Console.WriteLine(k_NoSuitableVehicleMassage);
                     licenseNumber = GetLicenseNumber();
                }
 
-               Console.WriteLine(m_Garage.GetSpecificVehicleInfo(licenseNumber));
+               string vehicleInfo = m_Garage.GetSpecificVehicleInfo(licenseNumber);
+               Console.WriteLine(vehicleInfo);
           }
 
           private void ChangeVehicleStatusRoutine()
@@ -179,39 +186,44 @@ namespace Ex03.ConsoleUI
                licenseNumber = GetLicenseNumber();
                while (!m_Garage.IsExistInGarage(licenseNumber))
                {
-                    PrintErrorMassage();
+                    Console.WriteLine(k_NoSuitableVehicleMassage);
                     licenseNumber = GetLicenseNumber();
                }
 
                newStatus = GetStatus();
                m_Garage.ChangeVehicleStatus(licenseNumber, newStatus);
+               Console.WriteLine(k_VehicleStatusChangedMassage);    
           }
 
           private void EnterNewVehicleRoutine()
           {
-               VehicleEntranceForm vehicleForm = new VehicleEntranceForm();
-               bool isFoundInGarage = false;
-
                string licenseNumber = GetLicenseNumber();
-               isFoundInGarage = m_Garage.FindLicenseInGarage(licenseNumber);
+               bool vehicleFoundInGarage = m_Garage.FindLicenseInGarage(licenseNumber);
+               VehicleEntranceForm vehicleForm = new VehicleEntranceForm();
 
-               if (isFoundInGarage)
+               if (vehicleFoundInGarage)
                {
-                    Console.WriteLine("Vehicle is already in garage, changing status to In Repair");
+                    Console.WriteLine(k_VehicleAlreadyInGarageMassage);
                     m_Garage.ChangeVehicleStatus(vehicleForm.LicenseNumber, Garage.eVehicleStatus.InRepair);
                }
                else
                {
-                    VehicleFactory.eVehicleType vehicleType = GetVehicleType();
-                    Vehicle newVehicleToInsert = VehicleFactory.CreateNewVehicle(licenseNumber, vehicleType);
-                    vehicleForm.VehicleModel = GetVehicleModel();
-                    GetSpecificVehicleInfo(vehicleForm);
-                    GetEngineInfo(vehicleForm);
-                    GetWheelsInfo(vehicleForm);
-                    GetOwnerInfo(vehicleForm);
+                    vehicleForm.VehicleType = GetVehicleType();
+                    Vehicle newVehicleToInsert = VehicleFactory.CreateNewVehicle(licenseNumber, vehicleForm.VehicleType);
+                    GetVehicleInfo(vehicleForm);
                     newVehicleToInsert.FulfillVehicleDetails(vehicleForm);
                     m_Garage.EnterNewVehicle(newVehicleToInsert, vehicleForm);
+                    Console.WriteLine(k_VehicleEnteredMassage);
                }
+          }
+
+          private void GetVehicleInfo(VehicleEntranceForm i_VehicleEnranceForm)
+          {
+               i_VehicleEnranceForm.VehicleModel = GetVehicleModel();
+               GetSpecificVehicleInfo(i_VehicleEnranceForm);
+               GetEngineInfo(i_VehicleEnranceForm);
+               GetWheelsInfo(i_VehicleEnranceForm);
+               GetOwnerInfo(i_VehicleEnranceForm);
           }
 
           private void GetSpecificVehicleInfo(VehicleEntranceForm i_VehicleEnranceForm)
@@ -264,6 +276,11 @@ namespace Ex03.ConsoleUI
           {
                Console.WriteLine("Enter owner's phone:");
                string ownerPhone = Console.ReadLine();
+               while (ownerPhone == string.Empty)
+               {
+                    Console.WriteLine(k_IllegalInputMassage);
+                    ownerPhone = Console.ReadLine();
+               }
 
                return ownerPhone;
           }
@@ -272,6 +289,11 @@ namespace Ex03.ConsoleUI
           {
                Console.WriteLine("Enter owner's name:");
                string ownerName = Console.ReadLine();
+               while (ownerName == string.Empty)
+               {
+                    Console.WriteLine(k_IllegalInputMassage);
+                    ownerName = Console.ReadLine();
+               }
 
                return ownerName;
           }
@@ -280,6 +302,11 @@ namespace Ex03.ConsoleUI
           {
                Console.WriteLine("Enter vehicle's license number");
                string licenseNumber = Console.ReadLine();
+               while (licenseNumber == string.Empty)
+               {
+                    Console.WriteLine(k_IllegalInputMassage);
+                    licenseNumber = Console.ReadLine();
+               }
 
                return licenseNumber;
           }
@@ -291,7 +318,7 @@ namespace Ex03.ConsoleUI
                float hoursAmount;
                while (!float.TryParse(hoursAmountString, out hoursAmount))
                {
-                    PrintErrorMassage();
+                    Console.WriteLine(k_IllegalInputMassage);
                     hoursAmountString = Console.ReadLine();
                }
 
@@ -317,13 +344,15 @@ namespace Ex03.ConsoleUI
           private int GetEnumInput<T>()
           {
                string userInput = Console.ReadLine();
+               int enumOption;
+               int.TryParse(userInput, out enumOption);
                bool isLegalInput = false;
 
                while (!isLegalInput)
                {
-                    if (!Enum.IsDefined(typeof(T), int.Parse(userInput)))
+                    if (!int.TryParse(userInput, out enumOption) || !Enum.IsDefined(typeof(T), enumOption))
                     {
-                         PrintErrorMassage();
+                         Console.WriteLine(k_IllegalInputMassage);
                          userInput = Console.ReadLine();
                     }
                     else
@@ -332,7 +361,7 @@ namespace Ex03.ConsoleUI
                     }
                }
 
-               return int.Parse(userInput);
+               return enumOption;
           }
 
           private GasolineEngine.eFuelType GetFuelType()
@@ -351,7 +380,7 @@ namespace Ex03.ConsoleUI
 
                while (!float.TryParse(fuelAmountString, out fuelAmount))
                {
-                    PrintErrorMassage();
+                    Console.WriteLine(k_IllegalInputMassage);
                     fuelAmountString = Console.ReadLine();
                }
 
@@ -361,8 +390,14 @@ namespace Ex03.ConsoleUI
           private string GetVehicleModel()
           {
                Console.WriteLine("Enter vehicle's model:");
+               string vehicleModel = Console.ReadLine();
+               while (vehicleModel == string.Empty)
+               {
+                    Console.WriteLine(k_IllegalInputMassage);
+                    vehicleModel = Console.ReadLine();
+               }
 
-               return Console.ReadLine();
+               return vehicleModel;
           }
 
           private Garage.eFilter GetFilter()
@@ -423,7 +458,7 @@ namespace Ex03.ConsoleUI
 
                while (!int.TryParse(engineCapacityString, out engineCapacity))
                {
-                    PrintErrorMassage();
+                    Console.WriteLine(k_IllegalInputMassage);
                     engineCapacityString = Console.ReadLine();
                }
 
@@ -446,7 +481,7 @@ namespace Ex03.ConsoleUI
 
                while (!float.TryParse(remainingBatteryHoursString, out remainingBatteryHours))
                {
-                    PrintErrorMassage();
+                    Console.WriteLine(k_IllegalInputMassage);
                     remainingBatteryHoursString = Console.ReadLine();
                }
 
@@ -461,7 +496,7 @@ namespace Ex03.ConsoleUI
 
                while (!float.TryParse(currentFuelString, out currentFuelAmount))
                {
-                    PrintErrorMassage();
+                    Console.WriteLine(k_IllegalInputMassage);
                     currentFuelString = Console.ReadLine();
                }
 
@@ -472,6 +507,11 @@ namespace Ex03.ConsoleUI
           {
                Console.WriteLine("Enter wheels manufacturer's name: ");
                string wheelsManufacturer = Console.ReadLine();
+               while (wheelsManufacturer == string.Empty)
+               {
+                    Console.WriteLine(k_IllegalInputMassage);
+                    wheelsManufacturer = Console.ReadLine();
+               }
 
                return wheelsManufacturer;
           }
@@ -484,7 +524,7 @@ namespace Ex03.ConsoleUI
 
                while (!float.TryParse(wheelsAirPressureString, out wheelsAirPressure))
                {
-                    PrintErrorMassage();
+                    Console.WriteLine(k_IllegalInputMassage);
                     wheelsAirPressureString = Console.ReadLine();
                }
 
@@ -499,7 +539,7 @@ namespace Ex03.ConsoleUI
 
                while (!int.TryParse(trunkCapacityString, out trunkCapacity))
                {
-                    PrintErrorMassage();
+                    Console.WriteLine(k_IllegalInputMassage);
                     trunkCapacityString = Console.ReadLine();
                }
 

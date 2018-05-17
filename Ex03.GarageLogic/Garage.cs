@@ -6,21 +6,6 @@ namespace Ex03.GarageLogic
 {
      public class Garage
      {
-          public enum eFilter
-          {
-               InRepair = 1,
-               Fixed,
-               Payed,
-               All
-          }
-
-          public enum eVehicleStatus
-          {
-               InRepair = 1,
-               Fixed,
-               Payed
-          }
-
           public class VehicleInfo
           {
                private Vehicle m_Vehicle;
@@ -71,11 +56,11 @@ namespace Ex03.GarageLogic
                     return str.ToString();
                }
           }
-
+     
           private const string k_NoSuitableVehicleMassage = "Entered vehicle is not in the garage, Try again";
           private const string k_NotLegalFuel = "Cannot fuel vehicle";
           private const string k_NotLegalCharge = "Cannot charge vehicle";
-          private Dictionary<string, VehicleInfo> r_VehiclesInfo = new Dictionary<string, VehicleInfo>();
+          private readonly Dictionary<string, VehicleInfo> r_VehiclesInfo = new Dictionary<string, VehicleInfo>();
 
           public Dictionary<string, VehicleInfo> VehiclesInfo
           {
@@ -196,6 +181,21 @@ namespace Ex03.GarageLogic
           public bool IsExistInGarage(string i_LicenseNumber)
           {
                return r_VehiclesInfo.ContainsKey(i_LicenseNumber);
+          }
+
+          public enum eFilter
+          {
+               InRepair = 1,
+               Fixed,
+               Payed,
+               All
+          }
+
+          public enum eVehicleStatus
+          {
+               InRepair = 1,
+               Fixed,
+               Payed
           }
      }
 }

@@ -6,6 +6,7 @@ namespace Ex03.GarageLogic
 {
      public class GasolineEngine : EnergySource
      {
+          private const string k_NotLegalFuelType = "Not compatible fuel type";
           private readonly float r_MaxFuelAmount;
           private readonly eFuelType r_FuelType;
           private float m_CurrentFuelAmount;
@@ -29,7 +30,7 @@ namespace Ex03.GarageLogic
           {
                if (i_fuelType != r_FuelType)
                {
-                    throw new ArgumentException();
+                    throw new ArgumentException(k_NotLegalFuelType);
                }
 
                if (m_CurrentFuelAmount + i_FuelAmountToAdd <= r_MaxFuelAmount)
@@ -60,7 +61,7 @@ namespace Ex03.GarageLogic
 
           public enum eFuelType
           {
-               Soler,
+               Soler = 1,
                Octan95,
                Octan96,
                Octan98

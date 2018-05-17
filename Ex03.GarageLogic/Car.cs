@@ -42,7 +42,6 @@ namespace Ex03.GarageLogic
                          k_MaximumAirPressure);
                     Wheels.Add(WheelToAdd);
                }
-
           }
 
           public eCarColor Color

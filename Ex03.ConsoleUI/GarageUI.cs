@@ -16,7 +16,7 @@ namespace Ex03.ConsoleUI
           private const string k_VehicleStatusChangedMassage = "Vehicle's status changed";
           private const string k_VehicleEnteredMassage = "Vehicle entered to the garage";
           private const string k_IllegalInputMassage = "Illegal input, Try again";
-          Garage m_Garage = new Garage();
+          private Garage m_Garage = new Garage();
 
           public void Run()
           {
@@ -164,9 +164,9 @@ namespace Ex03.ConsoleUI
 
           private void EnterNewVehicleRoutine()
           {
-               string licenseNumber = GetLicenseNumber();
-               bool vehicleFoundInGarage = m_Garage.IsExistInGarage(licenseNumber);
                VehicleEntranceForm vehicleForm = new VehicleEntranceForm();
+               vehicleForm.LicenseNumber = GetLicenseNumber();
+               bool vehicleFoundInGarage = m_Garage.IsExistInGarage(vehicleForm.LicenseNumber);
 
                if (vehicleFoundInGarage)
                {
@@ -176,7 +176,7 @@ namespace Ex03.ConsoleUI
                else
                {
                     vehicleForm.VehicleType = GetVehicleType();
-                    Vehicle newVehicleToInsert = VehicleFactory.CreateNewVehicle(licenseNumber, vehicleForm.VehicleType);
+                    Vehicle newVehicleToInsert = VehicleFactory.CreateNewVehicle(vehicleForm.LicenseNumber, vehicleForm.VehicleType);
                     GetVehicleInfo(vehicleForm);
                     newVehicleToInsert.FulfillVehicleDetails(vehicleForm);
                     m_Garage.EnterNewVehicle(newVehicleToInsert, vehicleForm);

@@ -67,48 +67,36 @@ namespace Ex03.GarageLogic
                     str.AppendFormat("Phone Number: {0}{1}", m_OwnerPhoneNumber, Environment.NewLine);
                     str.AppendFormat("Vehicle status: {0}{1}", m_VehicleStatus, Environment.NewLine);
                     str.AppendFormat("{0} {1}", m_Vehicle.ToString(), Environment.NewLine);
-                                        
+
                     return str.ToString();
                }
           }
 
-          private List<VehicleInfo> m_VehiclesInfo;
+          private const string k_NoSuitableVehicleMassage = "Entered vehicle is not in the garage, Try again";
+          private const string k_NotLegalFuel = "Cannot fuel vehicle";
+          private const string k_NotLegalCharge = "Cannot charge vehicle";
+          private readonly Dictionary<string, VehicleInfo> r_VehiclesInfo = null;
 
-          public List<VehicleInfo> VehiclesInfo
+          public Dictionary<string, VehicleInfo> VehiclesInfo
           {
-               get { return m_VehiclesInfo; }
-               set { m_VehiclesInfo = value; }
+               get { return r_VehiclesInfo; }
           }
 
           public Garage()
           {
-               m_VehiclesInfo = new List<VehicleInfo>();
+               r_VehiclesInfo = new Dictionary<string, VehicleInfo>();
           }
 
           public void EnterNewVehicle(Vehicle i_NewVehicleToEnter, VehicleEntranceForm i_VehicleForm)
           {
                VehicleInfo newVehicleInfo = new VehicleInfo(i_NewVehicleToEnter, i_VehicleForm.OwnerName, i_VehicleForm.OwnerPhone);
-               m_VehiclesInfo.Add(newVehicleInfo);
-          }
-
-          public bool FindLicenseInGarage(string i_LicenseNumber)
-          {
-               bool isLicenseNumberFound = false;
-               foreach (VehicleInfo vehicleInfo in m_VehiclesInfo)
-               {
-                    if (vehicleInfo.Vehicle.LicenseNumber == i_LicenseNumber)
-                    {
-                         isLicenseNumberFound = true;
-                    }
-               }
-
-               return isLicenseNumberFound;
+               r_VehiclesInfo.Add(i_VehicleForm.LicenseNumber, newVehicleInfo);
           }
 
           public string DisplayAllLicenseNumberOfVehicles()
           {
                StringBuilder allLicenseNumberOfVehicles = new StringBuilder();
-               foreach (VehicleInfo vehicle in m_VehiclesInfo)
+               foreach (VehicleInfo vehicle in r_VehiclesInfo.Values)
                {
                     allLicenseNumberOfVehicles.AppendLine(vehicle.Vehicle.LicenseNumber);
                }
@@ -119,7 +107,7 @@ namespace Ex03.GarageLogic
           public string DisplayLicenseNumberOfVehiclesByStatus(eVehicleStatus i_RequestedStatusToFilter)
           {
                StringBuilder licenseNumberOfVehiclesByStatus = new StringBuilder();
-               foreach (VehicleInfo vehicleInfo in m_VehiclesInfo)
+               foreach (VehicleInfo vehicleInfo in r_VehiclesInfo.Values)
                {
                     if (vehicleInfo.VehicleStatus == i_RequestedStatusToFilter)
                     {
@@ -132,91 +120,87 @@ namespace Ex03.GarageLogic
 
           public void ChangeVehicleStatus(string i_LicenseNumber, eVehicleStatus i_RecievedNewStatus)
           {
-               foreach (VehicleInfo vehicleInfo in m_VehiclesInfo)
+               if (r_VehiclesInfo.ContainsKey(i_LicenseNumber))
                {
-                    if (vehicleInfo.Vehicle.LicenseNumber == i_LicenseNumber)
-                    {
-                         vehicleInfo.VehicleStatus = i_RecievedNewStatus;
-                    }
+                    r_VehiclesInfo[i_LicenseNumber].VehicleStatus = i_RecievedNewStatus;
+               }
+               else
+               {
+                    throw new ArgumentException(k_NoSuitableVehicleMassage);
                }
           }
 
           public void InflateWheelsToMax(string i_LicenseNumber)
           {
-               foreach (VehicleInfo vehicleInfo in m_VehiclesInfo)
+               if (r_VehiclesInfo.ContainsKey(i_LicenseNumber))
                {
-                    if (vehicleInfo.Vehicle.LicenseNumber == i_LicenseNumber)
-                    {
-                         vehicleInfo.Vehicle.Inflate();
-                    }
+                    r_VehiclesInfo[i_LicenseNumber].Vehicle.Inflate();
+               }
+               else
+               {
+                    throw new ArgumentException(k_NoSuitableVehicleMassage);
                }
           }
 
           public void Fuel(string i_LicenseNumber, GasolineEngine.eFuelType i_fuelToAdd, float i_amountToAdd)
           {
-               foreach (VehicleInfo vehicleInfo in m_VehiclesInfo)
+               if (r_VehiclesInfo.ContainsKey(i_LicenseNumber))
                {
-                    if (vehicleInfo.Vehicle.LicenseNumber == i_LicenseNumber)
+                    GasolineEngine gasolineEngine = r_VehiclesInfo[i_LicenseNumber].Vehicle.Engine as GasolineEngine;
+                    if (gasolineEngine != null)
                     {
-                         GasolineEngine gasolineEngine = vehicleInfo.Vehicle.Engine as GasolineEngine;
-                         if (gasolineEngine != null)
-                         {
-                              gasolineEngine.Fuel(i_amountToAdd, i_fuelToAdd);
-                         }
-                         else
-                         {
-                              throw new ArgumentException();
-                         }
+                         gasolineEngine.Fuel(i_amountToAdd, i_fuelToAdd);
                     }
+                    else
+                    {
+                         throw new ArgumentException(k_NotLegalFuel);
+                    }
+               }
+               else
+               {
+                    throw new ArgumentException(k_NoSuitableVehicleMassage);
                }
           }
 
           public void Charge(string i_LicenseNumber, float i_minutesAmountToAdd)
           {
-               foreach (VehicleInfo vehicleInfo in m_VehiclesInfo)
+               if (r_VehiclesInfo.ContainsKey(i_LicenseNumber))
                {
-                    if (vehicleInfo.Vehicle.LicenseNumber == i_LicenseNumber)
+                    ElectricEngine electricEngine = r_VehiclesInfo[i_LicenseNumber].Vehicle.Engine as ElectricEngine;
+                    if (electricEngine != null)
                     {
-                         ElectricEngine electricEngine = vehicleInfo.Vehicle.Engine as ElectricEngine;
-                         if (electricEngine != null)
-                         {
-                              electricEngine.Recharge(i_minutesAmountToAdd / 60);
-                         }
-                         else
-                         {
-                              throw new ArgumentException();
-                         }
+                         electricEngine.Recharge(i_minutesAmountToAdd / 60);
                     }
+                    else
+                    {
+                         throw new ArgumentException(k_NotLegalCharge);
+                    }
+               }
+               else
+               {
+                    throw new ArgumentException(k_NoSuitableVehicleMassage);
                }
           }
 
           public string GetSpecificVehicleInfo(string i_LicenseNumber)
           {
-               string specificVehicleInfo = null;
-               foreach (VehicleInfo vehicleInfo in m_VehiclesInfo)
+               string specificVehicleInfo;
+
+               if (r_VehiclesInfo.ContainsKey(i_LicenseNumber))
                {
-                    if (vehicleInfo.Vehicle.LicenseNumber == i_LicenseNumber)
-                    {
-                         specificVehicleInfo = vehicleInfo.ToString();
-                    }
+                    specificVehicleInfo = r_VehiclesInfo[i_LicenseNumber].ToString();
+               }
+               else
+               {
+                    throw new ArgumentException(k_NoSuitableVehicleMassage);
                }
 
                return specificVehicleInfo;
           }
 
-          public bool IsExistInGarage(string i_licenseNumber)
+          public bool IsExistInGarage(string i_LicenseNumber)
           {
-               bool isLicenseNumberExists = false;
-
-               foreach(VehicleInfo vehicleInfo in m_VehiclesInfo)
-               {
-                    if (i_licenseNumber == vehicleInfo.Vehicle.LicenseNumber)
-                    {
-                         isLicenseNumberExists = true;
-                    }
-               }
-
-               return isLicenseNumberExists;
+               return r_VehiclesInfo.ContainsKey(i_LicenseNumber);
           }
      }
 }

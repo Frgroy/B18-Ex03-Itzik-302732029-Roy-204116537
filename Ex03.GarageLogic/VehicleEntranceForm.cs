@@ -13,7 +13,7 @@ namespace Ex03.GarageLogic
           private int m_CarDoorsNumber;
           private Motorcycle.eLicenseType m_MotorcycleLicenseType;
           private int m_MotorcycleEngineCapacity;
-          private bool m_IsTruckTrunkCool;
+          private Truck.eTruckTrunkCooling m_IsTruckTrunkCool;
           private float m_TruckTrunkCapacity;
           private float m_RemainingBatteryHours;
           private float m_CurrentFuelAmount;
@@ -64,7 +64,7 @@ namespace Ex03.GarageLogic
                set { m_MotorcycleEngineCapacity = value; }
           }
 
-          public bool IsTruckTrunkCool
+          public Truck.eTruckTrunkCooling IsTruckTrunkCool
           {
                get { return m_IsTruckTrunkCool; }
                set { m_IsTruckTrunkCool = value; }

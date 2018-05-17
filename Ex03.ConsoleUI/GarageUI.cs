@@ -10,13 +10,12 @@ namespace Ex03.ConsoleUI
      public class GarageUI
      {
           private const string k_VehicleAlreadyInGarageMassage = "Vehicle is already in garage, changing status to In Repair";
-          private const string k_NoSuitableVehicleMassage = "Entered vehicle is not in the garage, Try again";
-          private const string k_IllegalInputMassage = "Illegal input, Try again";
           private const string k_WheelsInflatedMassage = "Wheels inflated to maximum";
           private const string k_VehicleFueledMassage = "Vehicle fueled";
           private const string k_VehicleChargedMassage = "Vehicle charged";
           private const string k_VehicleStatusChangedMassage = "Vehicle's status changed";
           private const string k_VehicleEnteredMassage = "Vehicle entered to the garage";
+          private const string k_IllegalInputMassage = "Illegal input, Try again";
           Garage m_Garage = new Garage();
 
           public void Run()
@@ -96,14 +95,7 @@ namespace Ex03.ConsoleUI
 
           private void InflateWheelsToMaxRoutine()
           {
-               string licenseNumber;
-
-               licenseNumber = GetLicenseNumber();
-               while (!m_Garage.IsExistInGarage(licenseNumber))
-               {
-                    Console.WriteLine(k_NoSuitableVehicleMassage);
-                    licenseNumber = GetLicenseNumber();
-               }
+               string licenseNumber = GetLicenseNumber();
 
                m_Garage.InflateWheelsToMax(licenseNumber);
                Console.WriteLine(k_WheelsInflatedMassage);
@@ -116,12 +108,6 @@ namespace Ex03.ConsoleUI
                float fuelAmount;
 
                licenseNumber = GetLicenseNumber();
-               while (!m_Garage.IsExistInGarage(licenseNumber))
-               {
-                    Console.WriteLine(k_NoSuitableVehicleMassage);
-                    licenseNumber = GetLicenseNumber();
-               }
-
                fuelType = GetFuelType();
                fuelAmount = GetFuelAmount();
 
@@ -142,17 +128,9 @@ namespace Ex03.ConsoleUI
 
           private void ChargeVehicleRoutine()
           {
-               string licenseNumber;
-               float hoursAmount;
+               string licenseNumber = GetLicenseNumber();
+               float hoursAmount = GetHoursAmount();
 
-               licenseNumber = GetLicenseNumber();
-               while (!m_Garage.IsExistInGarage(licenseNumber))
-               {
-                    Console.WriteLine(k_NoSuitableVehicleMassage);
-                    licenseNumber = GetLicenseNumber();
-               }
-
-               hoursAmount = GetHoursAmount();
                try
                {
                     m_Garage.Charge(licenseNumber, hoursAmount);
@@ -162,35 +140,24 @@ namespace Ex03.ConsoleUI
                {
                     Console.WriteLine(ex.Message);
                }
+               catch (ArgumentException ex)
+               {
+                    Console.WriteLine(ex.Message);
+               }
           }
 
           private void DisplayVehicleInfoRoutine()
           {
-               string licenseNumber;
-               licenseNumber = GetLicenseNumber();
-               while (!m_Garage.IsExistInGarage(licenseNumber))
-               {
-                    Console.WriteLine(k_NoSuitableVehicleMassage);
-                    licenseNumber = GetLicenseNumber();
-               }
-
+               string licenseNumber = GetLicenseNumber();
                string vehicleInfo = m_Garage.GetSpecificVehicleInfo(licenseNumber);
                Console.WriteLine(vehicleInfo);
           }
 
           private void ChangeVehicleStatusRoutine()
           {
-               Garage.eVehicleStatus newStatus;
-               string licenseNumber;
+               string licenseNumber = GetLicenseNumber();
+               Garage.eVehicleStatus newStatus = GetStatus();
 
-               licenseNumber = GetLicenseNumber();
-               while (!m_Garage.IsExistInGarage(licenseNumber))
-               {
-                    Console.WriteLine(k_NoSuitableVehicleMassage);
-                    licenseNumber = GetLicenseNumber();
-               }
-
-               newStatus = GetStatus();
                m_Garage.ChangeVehicleStatus(licenseNumber, newStatus);
                Console.WriteLine(k_VehicleStatusChangedMassage);    
           }
@@ -198,7 +165,7 @@ namespace Ex03.ConsoleUI
           private void EnterNewVehicleRoutine()
           {
                string licenseNumber = GetLicenseNumber();
-               bool vehicleFoundInGarage = m_Garage.FindLicenseInGarage(licenseNumber);
+               bool vehicleFoundInGarage = m_Garage.IsExistInGarage(licenseNumber);
                VehicleEntranceForm vehicleForm = new VehicleEntranceForm();
 
                if (vehicleFoundInGarage)
@@ -546,21 +513,12 @@ namespace Ex03.ConsoleUI
                return trunkCapacity;
           }
 
-          private bool GetCoolTruckTrunkSatus()
+          private Truck.eTruckTrunkCooling GetCoolTruckTrunkSatus()
           {
-               bool isTruckTrunkCool = false;
-               string TruckTrunkCoolMessege = string.Format(
-@"Is your turck's trunk cool?
-[1]Yes
-[2]No");
-               Console.WriteLine(TruckTrunkCoolMessege);
-               string TruckTrunkCapacityString = Console.ReadLine();
-               if (int.Parse(TruckTrunkCapacityString) == 1)
-               {
-                    isTruckTrunkCool = true;
-               }
+               Console.WriteLine("Is your truck's trunk cool?");
+               PrintEnumOptions<Truck.eTruckTrunkCooling>();
 
-               return isTruckTrunkCool;
+               return (Truck.eTruckTrunkCooling)GetEnumInput<Truck.eTruckTrunkCooling>();
           }
 
           private enum eFunctionOption
